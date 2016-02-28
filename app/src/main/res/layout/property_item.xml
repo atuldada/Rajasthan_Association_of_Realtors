@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#eeeeee"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#eeeeee"
+ />
+    <EditText
+        android:layout_width="2176dp"
+        android:layout_height="42dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/propertyAddress"
+
+        android:hint="Address"
+        android:background="#fafafa"
+        android:paddingLeft="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+
+        android:background="#eeeeee"/>
+
+    <EditText
+        android:layout_width="2072dp"
+        android:layout_height="42dp"
+        android:id="@+id/propertyRate"
+        android:hint="Rate"
+        android:background="#fafafa"
+        android:paddingLeft="10dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

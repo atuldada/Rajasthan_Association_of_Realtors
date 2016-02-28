@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="io.startuplabs.rar.Homescreen"
+    tools:showIn="@layout/app_bar_homescreen">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:id="@+id/adv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        android:background="@drawable/adv">
+        <!--<ImageView
+            android:id="@+id/ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/adv"
+            android:scaleType="fitXY"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center"
+            android:paddingBottom="-16dp">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="3"
+    android:orientation="horizontal"
+    android:weightSum="4.5">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+
+        >
+        <com.andexert.library.RippleView
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rv_alpha="250"
+            app:rv_color="#1976d2"
+            app:rv_zoom="true"
+            app:rv_zoomDuration="250"
+            rv_centered="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/inf"/>
+            </LinearLayout>
+       <TextView
+
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:text="RAR\nINFORMATION"
+           android:textSize="10dp"
+           android:gravity="bottom|center"
+           android:paddingBottom="16dp"
+
+           />
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/android_verticaldivider_home"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <com.andexert.library.RippleView
+            android:id="@+id/more2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rv_alpha="250"
+            app:rv_color="#1976d2"
+            app:rv_zoom="true"
+            rv_centered="true"
+            app:rv_zoomDuration="250">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/requi"/>
+            </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Requirement"
+            android:textSize="10dp"
+            android:gravity="bottom|center"
+            android:paddingBottom="16dp"
+            />
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/android_verticaldivider_home"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <com.andexert.library.RippleView
+            android:id="@+id/more3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rv_alpha="250"
+            app:rv_color="#1976d2"
+            app:rv_zoom="true"
+            rv_centered="true"
+            app:rv_zoomDuration="250">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/memberbenifts"/>
+            </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="membership\nbenifit"
+            android:textSize="10dp"
+            android:gravity="bottom|center"
+            android:paddingBottom="16dp"
+            />
+        </com.andexert.library.RippleView>
+    </LinearLayout>
+
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Search"
+            android:background="#1976d2"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+</RelativeLayout>
+

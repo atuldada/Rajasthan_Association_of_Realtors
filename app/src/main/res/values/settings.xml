@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="default_user">e2ea872f-c147-4ea5-a4b7-08f3ee7054ef-bluemix</string>
+    <string name="default_dbname">rar</string>
+    <string name="default_api_key">beaverseesconvedlyseling</string>
+    <string name="default_api_password">4c620f57eeac5fadbb826b9404c522b7c1e07e34</string>
+
+</resources>
