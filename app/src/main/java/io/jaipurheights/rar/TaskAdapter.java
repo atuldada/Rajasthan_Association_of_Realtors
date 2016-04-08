@@ -125,9 +125,27 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
             Context context = parent.getContext();
             ImageLoader imgLoader = new ImageLoader(context);
             imgLoader.DisplayImage(url, (ImageView) convertView.findViewById(R.id.imageofproperty));
+
          //   new DownloadImageTask((ImageView) convertView.findViewById(R.id.imageofproperty))
           //          .execute(url);
         }
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( v.getContext(),Displaysearch.class);
+                intent.putExtra("phone",t.getPhone());
+                intent.putExtra("url", "https://e2ea872f-c147-4ea5-a4b7-08f3ee7054ef-bluemix.cloudant.com/rar/" + t.getId() + "/" + t.getImagename());
+                intent.putExtra("description", t.getDescription());
+                intent.putExtra("subdescription", t.getSubdescription());
+                intent.putExtra("name", t.getNamee());
+                intent.putExtra("price", t.getPrice());
+                intent.putExtra("area", t.getArea());
+                intent.putExtra("city", t.getCity());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(intent);
+
+            }
+        });
 
         return convertView;
     }

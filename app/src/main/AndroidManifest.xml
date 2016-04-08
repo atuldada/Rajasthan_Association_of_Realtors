@@ -8,48 +8,48 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <permission
         android:name="com.ibm.mobilefirstplatform.clientsdk.android.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.ibm.mobilefirstplatform.clientsdk.android.app.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@drawable/sidelogo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-
-        android:name="android.support.multidex.MultiDexApplication">
-
+        android:theme="@style/AppTheme">
         <activity
-            android:name="io.jaipurheights.rar.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="io.jaipurheights.rar.LesseActivity"
+            android:name=".LesseActivity"
             android:label="Form" />
         <activity
-            android:name="io.jaipurheights.rar.form"
+            android:name=".form"
             android:label="Form" />
         <activity
-            android:name="io.jaipurheights.rar.SignatureActivity"
+            android:name=".SignatureActivity"
             android:label="@string/title_activity_signature" />
         <activity
-            android:name="io.jaipurheights.rar.Homescreen"
+            android:name=".Homescreen"
             android:label="Home"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.ibm.mobilefirstplatform.clientsdk.android.app.IBMPushNotification" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            </activity>
+        </activity>
         <activity
-            android:name="io.jaipurheights.rar.Flash"
+            android:name=".Flash"
             android:label="RAR"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -59,106 +59,91 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="io.jaipurheights.rar.TndC"
+            android:name=".TndC"
             android:label="@string/title_activity_tnd_c"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.checktandc"
+            android:name=".checktandc"
             android:label="@string/title_activity_checktandc"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.buyer"
+            android:name=".buyer"
             android:label="@string/title_activity_checktandc"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.lessor"
+            android:name=".lessor"
             android:label="@string/title_activity_checktandc"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Membership"
+            android:name=".Membership"
             android:label="@string/title_activity_membership"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Why"
+            android:name=".Why"
             android:label="@string/title_activity_why"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Grivences"
+            android:name=".Grivences"
             android:label="@string/title_activity_grivences"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.rarinfo"
+            android:name=".rarinfo"
             android:label="@string/title_activity_rarinfo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Contactus"
+            android:name=".Contactus"
             android:label="@string/title_activity_contactus"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Privacypolicy"
+            android:name=".Privacypolicy"
             android:label="@string/title_activity_privacypolicy"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Info"
+            android:name=".Info"
             android:label="@string/title_activity_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Requirement"
+            android:name=".Requirement"
             android:label="Post Requirement"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.search"
+            android:name=".search"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="io.jaipurheights.rar.Postproperty"
+            android:name=".Postproperty"
             android:label="Post Property"
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.Propertyshown"
+            android:name=".Propertyshown"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.sell"
+            android:name=".sell"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.buy"
+            android:name=".buy"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.propertysearchfilter"
+            android:name=".propertysearchfilter"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.RegistrationActivity"
+            android:name=".RegistrationActivity"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="io.jaipurheights.rar.LoginActivity"
+            android:name=".LoginActivity"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service android:name="com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPushIntentService" />
 
         <receiver
             android:name="com.ibm.mobilefirstplatform.clientsdk.android.push.internal.MFPPushBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
@@ -170,6 +155,11 @@
                 <category android:name="com.ibm.mobilefirstplatform.clientsdk.android.app" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".Displaysearch"
+            android:label="Property"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
