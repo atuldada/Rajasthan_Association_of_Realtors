@@ -1,7 +1,10 @@
 package io.jaipurheights.rar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,20 +15,61 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.ibm.mobilefirstplatform.clientsdk.android.core.api.BMSClient;
+import com.ibm.mobilefirstplatform.clientsdk.android.core.api.Response;
+import com.ibm.mobilefirstplatform.clientsdk.android.core.api.ResponseListener;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPush;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPushException;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPushResponseListener;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPushNotificationListener;
+import com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPSimplePushNotification;
 
 import com.andexert.library.RippleView;
 
-public class Homescreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import org.json.JSONObject;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+
+public class Homescreen extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,ResponseListener {
+    private MFPPush push=null;
+    private static final String TAG = Homescreen.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+        try {
+            //initialize SDK with IBM Bluemix application ID and route
+            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
+            BMSClient.getInstance().initialize(this, "http://rar.mybluemix.net", "aefdcfbc-dafa-4fe3-9a58-1e8d03abe041");
+        } catch (MalformedURLException mue) {
+
+        }
+        MFPPush.getInstance().initialize(getApplicationContext());
+        push = MFPPush.getInstance();
+
+
+        push.register(new MFPPushResponseListener<String>() {
+            @Override
+            public void onSuccess(String deviceId) {
+                System.out.println("Registration successful");
+            }
+
+            @Override
+            public void onFailure(MFPPushException ex) {
+                ex.printStackTrace();
+            }
+        });
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,7 +104,7 @@ public class Homescreen extends AppCompatActivity
 
             @Override
             public void onComplete(RippleView rippleView) {
-                Intent i=new Intent(Homescreen.this,Postproperty.class);
+                Intent i = new Intent(Homescreen.this, Postproperty.class);
                 startActivity(i);
             }
 
@@ -76,6 +120,40 @@ public class Homescreen extends AppCompatActivity
 
             }
         });
+       final int []imageArray={R.drawable.a,R.drawable.b,R.drawable.c,R.drawable.d,R.drawable.e};
+       final ImageView imageView = (ImageView)findViewById(R.id.ad);
+
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable()
+        {
+            int i=0;
+            public void run()
+            {
+                imageView.setImageResource(imageArray[i]);
+                i++;
+                if(i>imageArray.length-1)
+                {
+                    i=0;
+                }
+                handler.postDelayed(this, 3000);  //for interval...
+            }
+
+        };
+        handler.postDelayed(runnable, 1000); //for initial delay..
+
+        TextView t=(TextView)findViewById(R.id.textView);
+        t.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    Intent i=new Intent(Homescreen.this,LoginActivity.class);
+                    startActivity(i);
+                }
+
+            }
+        });
+
+
     }
 
     @Override
@@ -91,7 +169,8 @@ public class Homescreen extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.homescreen, menu);
+
+      //  getMenuInflater().inflate(R.menu.homescreen, menu);
         return true;
     }
 
@@ -108,6 +187,42 @@ public class Homescreen extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSuccess(Response response) {
+
+        Log.i(TAG, "Successfully pinged Bluemix!");
+    }
+    @Override
+    public void onFailure(Response response, Throwable throwable, JSONObject jsonObject) {
+        String errorMessage = "";
+
+        if (response != null) {
+            if (response.getStatus() == 404) {
+                errorMessage += "Application Route not found at:\n" + BMSClient.getInstance().getBluemixAppRoute() +
+                        "\nPlease verify your Application Route and rebuild the app.";
+            } else {
+                errorMessage += response.toString() + "\n";
+            }
+        }
+
+        if (throwable != null) {
+            if (throwable.getClass().equals(UnknownHostException.class)) {
+                errorMessage = "Unable to access Bluemix host!\nPlease verify internet connectivity and try again.";
+            } else {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                throwable.printStackTrace(pw);
+                errorMessage += "THROWN" + sw.toString() + "\n";
+            }
+        }
+
+        if (errorMessage.isEmpty())
+            errorMessage = "Request Failed With Unknown Error.";
+
+
+        Log.e(TAG, "Get request to Bluemix failed: " + errorMessage);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -161,6 +276,20 @@ public class Homescreen extends AppCompatActivity
             Intent i=new Intent(Homescreen.this,Membership.class);
             startActivity(i);
         }
+        else if (id == R.id.register) {
+            Intent i=new Intent(Homescreen.this,RegistrationActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.logout) {
+            final   SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("mypref",0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("log","false");
+            editor.commit();
+            Toast.makeText(getApplicationContext(),
+                   "Logged Out Successfully",
+                    Toast.LENGTH_LONG).show();
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

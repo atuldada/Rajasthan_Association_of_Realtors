@@ -59,7 +59,7 @@ class TasksModelsearch {
 
     private final Context mContext;
     private final Handler mHandler;
-    private Postproperty mListener;
+
     private search searchListener;
 
     public TasksModelsearch(Context context) {
@@ -103,9 +103,7 @@ class TasksModelsearch {
      * Sets the listener for replication callbacks as a weak reference.
      * @param listener {@link Postproperty} to receive callbacks.
      */
-    public void setReplicationListener(Postproperty listener) {
-        this.mListener = listener;
-    }
+
     public void setReplicationListener(search listener) {
         this.searchListener = listener;
     }
@@ -281,9 +279,7 @@ class TasksModelsearch {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                if (mListener != null) {
-                    mListener.replicationComplete();
-                }
+
                 if (searchListener != null) {
                     searchListener.replicationComplete();
                 }
@@ -302,9 +298,7 @@ class TasksModelsearch {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                if (mListener != null) {
-                    mListener.replicationError();
-                }
+
                 if (searchListener != null) {
                     searchListener.replicationError();
                 }

@@ -15,7 +15,13 @@
 package io.jaipurheights.rar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,18 +29,26 @@ import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.common.base.Preconditions;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 public class TaskAdapter extends BaseAdapter implements ListAdapter {
 
     private final Context context;
     private final List<Task> tasks;
+    private ImageLoader ob;
 
     public TaskAdapter(Context context, List<Task> tasks) {
         Preconditions.checkNotNull(context);
@@ -75,29 +89,45 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
         TextView subdesc = (TextView) convertView.findViewById(R.id.sub_description);
         TextView location = (TextView) convertView.findViewById(R.id.location);
         CheckBox completed = (CheckBox) convertView.findViewById(R.id.checkbox_completed);
+        ImageView image=(ImageView) convertView.findViewById(R.id.imageofproperty);
         Button call =(Button)convertView.findViewById(R.id.call);
         Button message =(Button)convertView.findViewById(R.id.message);
-
+       final Task t = this.tasks.get(position);
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context, "commming soon", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + t.getPhone()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                view.getContext().startActivity(intent);
+              //  Toast.makeText(context, "commming soon", Toast.LENGTH_SHORT).show();
             }
         });
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(context, "commming soon", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "sms:" + t.getPhone()));
+                intent.putExtra("sms_body", " ");
+                view.getContext().startActivity(intent);
+               // Toast.makeText(context, "commming soon", Toast.LENGTH_SHORT).show();
             }
         });
-        Task t = this.tasks.get(position);
+
         desc.setText(t.getDescription());
-       // subdesc.setText(t.getSubdescription());
-       // location.setText(t.getLocation());
+        subdesc.setText(t.getSubdescription());
+        location.setText(t.getLocation());
         completed.setChecked(t.isCompleted());
         completed.setId(position);
+        if(t.getImagename()!=null) {
+            String url = "https://e2ea872f-c147-4ea5-a4b7-08f3ee7054ef-bluemix.cloudant.com/rar/" + t.getId() + "/" + t.getImagename();
+            System.out.println(url);
+            Context context = parent.getContext();
+            ImageLoader imgLoader = new ImageLoader(context);
+            imgLoader.DisplayImage(url, (ImageView) convertView.findViewById(R.id.imageofproperty));
+         //   new DownloadImageTask((ImageView) convertView.findViewById(R.id.imageofproperty))
+          //          .execute(url);
+        }
 
         return convertView;
     }
@@ -157,4 +187,30 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
     public void remove(int position) {
         this.tasks.remove(position);
     }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
 }

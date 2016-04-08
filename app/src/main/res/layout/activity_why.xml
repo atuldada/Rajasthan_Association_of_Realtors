@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="io.startuplabs.rar.Why">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="io.jaipurheights.rar.TndC"
+    tools:showIn="@layout/activity_why"
+    android:background="#2196f3">
+    <ScrollView
         android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+            <TextView
 
-    </android.support.design.widget.AppBarLayout>
+                android:id="@+id/texthead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Why should you join RAR (Rajasthan Association of Realtors) ?\n"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
 
-    <include layout="@layout/content_why"/>
+            <TextView
+                android:layout_weight="9"
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Real estate brokering in India an unorganized sector industry, subject to no laws and getting no
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+protection from the law. No one needs qualifications or even a track record to sell real estate in India.
 
-</android.support.design.widget.CoordinatorLayout>
+The very fact that the milk man, the baker and plumber are all free lance real estate agents , is the
+
+reason why YOU , the serious , full time real estate agent needs authentication."
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

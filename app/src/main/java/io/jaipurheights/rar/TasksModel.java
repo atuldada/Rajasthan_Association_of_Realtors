@@ -16,11 +16,13 @@ package io.jaipurheights.rar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.cloudant.sync.datastore.Attachment;
 import com.cloudant.sync.datastore.BasicDocumentRevision;
 import com.cloudant.sync.datastore.ConflictException;
 import com.cloudant.sync.datastore.Datastore;
@@ -28,7 +30,9 @@ import com.cloudant.sync.datastore.DatastoreManager;
 import com.cloudant.sync.datastore.DatastoreNotCreatedException;
 import com.cloudant.sync.datastore.DocumentBodyFactory;
 import com.cloudant.sync.datastore.DocumentException;
+import com.cloudant.sync.datastore.DocumentRevision;
 import com.cloudant.sync.datastore.MutableDocumentRevision;
+import com.cloudant.sync.datastore.UnsavedFileAttachment;
 import com.cloudant.sync.notifications.ReplicationCompleted;
 import com.cloudant.sync.notifications.ReplicationErrored;
 import com.cloudant.sync.replication.Replicator;
@@ -36,6 +40,7 @@ import com.cloudant.sync.replication.ReplicatorBuilder;
 import com.google.common.eventbus.Subscribe;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -59,7 +64,8 @@ class TasksModel {
 
     private final Context mContext;
     private final Handler mHandler;
-    private TodoActivity mListener;
+    private Postproperty mListener;
+
 
     public TasksModel(Context context) {
 
@@ -100,9 +106,9 @@ class TasksModel {
 
     /**
      * Sets the listener for replication callbacks as a weak reference.
-     * @param listener {@link TodoActivity} to receive callbacks.
+     * @param listener {@link Postproperty} to receive callbacks.
      */
-    public void setReplicationListener(TodoActivity listener) {
+    public void setReplicationListener(Postproperty listener) {
         this.mListener = listener;
     }
 
@@ -115,9 +121,14 @@ class TasksModel {
      * @param task task to create
      * @return new revision of the document
      */
-    public Task createDocument(Task task) {
+    public Task createDocument(Task task,String path) {
         MutableDocumentRevision rev = new MutableDocumentRevision();
         rev.body = DocumentBodyFactory.create(task.asMap());
+
+        File file1 =new File(path);
+
+        UnsavedFileAttachment att1 = new UnsavedFileAttachment(file1,"image/jpeg");
+        rev.attachments.put(att1.name, att1);
         try {
             BasicDocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
             return Task.fromRevision(created);
@@ -158,6 +169,7 @@ class TasksModel {
      * <p>Returns all {@code Task} documents in the datastore.</p>
      */
     public List<Task> allTasks() {
+
         int nDocs = this.mDatastore.getDocumentCount();
         List<BasicDocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
         List<Task> tasks = new ArrayList<Task>();
@@ -172,6 +184,7 @@ class TasksModel {
 
         return tasks;
     }
+
 
     //
     // MANAGE REPLICATIONS
@@ -198,6 +211,7 @@ class TasksModel {
     public void startPushReplication() {
         if (this.mPushReplicator != null) {
             this.mPushReplicator.start();
+
         } else {
             throw new RuntimeException("Push replication not set up correctly");
         }
@@ -254,10 +268,10 @@ class TasksModel {
         // We store this in plain text for the purposes of simple demonstration,
         // you might want to use something more secure.
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-        String username = sharedPref.getString(TodoActivity.SETTINGS_CLOUDANT_USER, "");
-        String dbName = sharedPref.getString(TodoActivity.SETTINGS_CLOUDANT_DB, "");
-        String apiKey = sharedPref.getString(TodoActivity.SETTINGS_CLOUDANT_API_KEY, "");
-        String apiSecret = sharedPref.getString(TodoActivity.SETTINGS_CLOUDANT_API_SECRET, "");
+        String username = sharedPref.getString(Postproperty.SETTINGS_CLOUDANT_USER, "");
+        String dbName = sharedPref.getString(Postproperty.SETTINGS_CLOUDANT_DB, "");
+        String apiKey = sharedPref.getString(Postproperty.SETTINGS_CLOUDANT_API_KEY, "");
+        String apiSecret = sharedPref.getString(Postproperty.SETTINGS_CLOUDANT_API_SECRET, "");
         String host = username + ".cloudant.com";
 
         // We recommend always using HTTPS to talk to Cloudant.
@@ -281,6 +295,7 @@ class TasksModel {
                 if (mListener != null) {
                     mListener.replicationComplete();
                 }
+
             }
         });
     }
@@ -299,6 +314,7 @@ class TasksModel {
                 if (mListener != null) {
                     mListener.replicationError();
                 }
+
             }
         });
     }

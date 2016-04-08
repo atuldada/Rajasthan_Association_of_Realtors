@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="io.jaipurheights.rar.TndC"
+    tools:showIn="@layout/activity_tnd_c"
+    android:background="#2196f3">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+            <TextView
+
+                android:id="@+id/texthead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Terms and Conditions :\n"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_weight="9"
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="The Lessor authorizes the RAR member hereinafter called “the broker” to lease his premises for a consideration mentioned in the form.\n
+\n\n
+The Lessor agrees to pay the broker commission of :
+\n\n
+The Lessor shall pay to the broker commission at the time of execution of the agreement.\n\n"
+
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+            <CheckBox
+                android:id="@+id/onep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1 month rental commission for a Commercial premises.."
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                />
+
+            <CheckBox
+                android:id="@+id/twop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15 days rental commission for a Residential premises"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:layout_weight="9"
+                android:id="@+id/text2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="
+\n\n
+The Lessor shall pay to the broker commission at the time of execution of the agreement.\n\n"
+
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
+
+
+            <Button
+                android:id="@+id/accept"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#1976d2"
+                android:text="Accept"
+                android:gravity="center"
+
+                android:layout_alignBottom="@id/text"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

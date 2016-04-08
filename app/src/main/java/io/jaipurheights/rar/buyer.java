@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 public class buyer extends AppCompatActivity {
 
@@ -17,11 +18,34 @@ public class buyer extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(buyer.this,form.class);
+                Intent i = new Intent(buyer.this, buy.class);
                 startActivity(i);
                 finish();
             }
         });
+      final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
+       final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+
+
+        mCheckBox2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheckBox2.isChecked())
+                    mCheckBox1.setChecked(false);
+
+            }
+        });
+
+        mCheckBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheckBox1.isChecked())
+                    mCheckBox2.setChecked(false);
+
+            }
+        });
+
+
 
     }
 

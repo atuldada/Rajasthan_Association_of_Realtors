@@ -4,44 +4,61 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_send"
             android:title="Home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/i"
+            android:icon="@drawable/ic_menu_send"
             android:title="Rar Info"
 
             />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_send"
             android:title="Why Join Rar" />
         <item
+            android:id="@+id/membeship"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Membership Benifit" />
+        <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_send"
             android:title="Greviences Cell*" />
     </group>
 
     <item android:title="Digital Forms">
+
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_menu_send"
                 android:title="Lesse" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Lessor" />
+            <item
+                android:id="@+id/sellor"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Seller" />
+            <item
+                android:id="@+id/buyer"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Buyer" />
+            <item
+                android:id="@+id/shown"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Property Shown" />
         </menu>
     </item>
     <item android:title="Account">
         <menu>
             <item
-                android:id="@+id/nave_share"
-                android:icon="@drawable/ic_menu_share"
+                android:id="@+id/register"
+                android:icon="@drawable/ic_menu_send"
                 android:title="Register" />
             <item
-                android:id="@+id/nave_send"
+                android:id="@+id/logout"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Log Out" />
         </menu>

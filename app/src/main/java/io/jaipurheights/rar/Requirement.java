@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,6 +36,20 @@ public class Requirement extends ActionBarActivity {
         setContentView(R.layout.activity_requirement);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+    /*    Button post=(Button)findViewById(R.id.lesseSubmit);
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Toast.makeText(getApplicationContext(),
+                        "Requirement Posted",
+                        Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        */
 
         final Spinner proptype = (Spinner) findViewById(R.id.lessePropType);
         ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(Requirement.this,
@@ -102,53 +117,91 @@ public class Requirement extends ActionBarActivity {
         city.setSelection(adapter3.getCount() - 1);
 
 
-
-
-
         Button sendButton = (Button) findViewById(R.id.lesseSubmit);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                   Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+
+                EditText name = (EditText) findViewById(R.id.lesseName);
+                EditText phone = (EditText) findViewById(R.id.lessePhone);
+            //    EditText email = (EditText) findViewById(R.id.email);
+            //    EditText add = (EditText) findViewById(R.id.lesseAddress);
+                Spinner category = (Spinner) findViewById(R.id.lessePropType);
+                Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
+                Spinner city = (Spinner) findViewById(R.id.city);
+                EditText location = (EditText) findViewById(R.id.lesseLocations);
+                EditText budget = (EditText) findViewById(R.id.lesseBudget);
+                EditText area = (EditText) findViewById(R.id.lesseMeasureCount);
+                Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+
+                String mob = name.getText().toString();
+                String nam = name.getText().toString();
+
+                if (true) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                     // set the type to 'email'
                     emailIntent.setType("vnd.android.cursor.dir/email");
-                    String to[] = {"developeratuldada@gmail.com", "aaryahitesh@gmail.com"};
+                    String mail = "atuldada.dada@gmail.com";
+                    String to[] = {mail};
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
                     // the attachment
-                    ArrayList<Uri> uris = new ArrayList<Uri>();
+                //    ArrayList<Uri> uris = new ArrayList<Uri>();
+                //    uris.add(Uri.fromFile(imgFile));
 
-                    try {
-                        InputStream is = getAssets().open("tandc.html");
+                    {
+                     /*   InputStream is = getAssets().open("lessor.txt");
                         byte[] buffer = new byte[is.available()];
                         is.read(buffer);
                         String xpath = Environment.getExternalStorageDirectory().toString();
-                        File targetFile = new File(xpath + "/terms_and_conditions.html");
+                        File targetFile = new File(xpath + "/terms_and_conditions.txt");
                         OutputStream os = new FileOutputStream(targetFile);
                         os.write(buffer);
                         is.close();
                         //flush OutputStream to write any buffered data to file
                         os.flush();
                         os.close();
-                        targetFile = new File(xpath + "/terms_and_conditions.html"); //re read
+
+                        targetFile = new File(xpath + "/terms_and_conditions.txt"); //re read
                         uris.add(Uri.fromFile(targetFile));
-                        emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+                        */
+                     //   emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
                         // the mail subject
-                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                        EditText name = (EditText) findViewById(R.id.lesseName);
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RAR Requirement form");
+
                         String text = "Name: " + name.getText().toString();
-                        EditText phone = (EditText) findViewById(R.id.lessePhone);
                         text += "\n" + "Phone: " + phone.getText().toString();
+
+
+                        text += "\n" + "Category: " + category.getSelectedItem().toString();
+                        text += "\n" + "Type: " + type.getSelectedItem().toString();
+                        text += "\n" + "City: " + city.getSelectedItem().toString();
+                        text += "\n" + "Location " + location.getText().toString();
+                        text += "\n" + "Budget: " + budget.getText().toString();
+                        text += "\n" + "Area: " + area.getText().toString();
+                        text += "\n" + "Unit: " + unit.getSelectedItem().toString();
+
+
                         emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, text);
                         emailIntent.putExtra(Intent.EXTRA_TEXT, text);
-                        startActivity(Intent.createChooser(emailIntent, "Send email..."));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
+                        startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+                    }
+                }
+              /*  else if(mob.length()>9)
+                {
+                    Toast.makeText(form.this, "Invalid Mobile No.", Toast.LENGTH_SHORT);
+                }*/
+                else {
+                    Toast.makeText(Requirement.this, "Incomplete Form", Toast.LENGTH_SHORT);
+                }
 
             }
         });
+
+
+
 
     }
 

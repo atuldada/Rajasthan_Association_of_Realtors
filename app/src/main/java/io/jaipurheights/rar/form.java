@@ -146,18 +146,18 @@ public class form extends ActionBarActivity {
                     ArrayList<Uri> uris = new ArrayList<Uri>();
                     uris.add(Uri.fromFile(imgFile));
                     try {
-                        InputStream is = getAssets().open("tandc.html");
+                        InputStream is = getAssets().open("lessor.txt");
                         byte[] buffer = new byte[is.available()];
                         is.read(buffer);
                         String xpath = Environment.getExternalStorageDirectory().toString();
-                        File targetFile = new File(xpath + "/terms_and_conditions.html");
+                        File targetFile = new File(xpath + "/terms_and_conditions.txt");
                         OutputStream os = new FileOutputStream(targetFile);
                         os.write(buffer);
                         is.close();
                         //flush OutputStream to write any buffered data to file
                         os.flush();
                         os.close();
-                        targetFile = new File(xpath + "/terms_and_conditions.html"); //re read
+                        targetFile = new File(xpath + "/terms_and_conditions.txt"); //re read
                         uris.add(Uri.fromFile(targetFile));
                         emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
                         // the mail subject

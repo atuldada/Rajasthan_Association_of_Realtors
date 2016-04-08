@@ -12,9 +12,10 @@
     android:weightSum="10">
 
     <ImageView
+        android:id="@+id/imageofproperty"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:src="@drawable/realestate"
+        android:src="@drawable/sidelogo"
         android:scaleType="fitXY"/>
     <LinearLayout
         android:layout_width="match_parent"

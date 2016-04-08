@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="io.startuplabs.rar.Form"
+    tools:context="io.jaipurheights.rar.Form"
     android:background="#eeeeee">
     <ScrollView
         android:layout_height="match_parent"
@@ -70,6 +70,26 @@
         android:layout_height="38dp"
         android:background="#fafafa"
         >
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fafafa"
+            android:ems="10"
+            android:hint="Email Id"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#fafafa"
+        >
     <EditText
         android:id="@+id/lesseAddress"
         android:layout_width="match_parent"
@@ -81,6 +101,23 @@
         android:inputType="textMultiLine" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#fafafa"
+        >
+        <Spinner
+            android:id="@+id/lessePropType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
@@ -107,15 +144,31 @@
         android:layout_height="38dp"
         android:background="#fafafa"
         >
+        <Spinner
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#fafafa"
+        >
+
         <EditText
-            android:id="@+id/lesseBudget"
+            android:id="@+id/lesseLocations"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
             android:ems="10"
-            android:hint="--Select Budget--"
             android:background="#fafafa"
-            android:inputType="number" />
+            android:hint="Location"
+            android:inputType="textMultiLine"
+            android:paddingLeft="10dp"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,15 +179,16 @@
         android:layout_height="38dp"
         android:background="#fafafa"
         >
+
         <EditText
-            android:id="@+id/lesseLocations"
+            android:id="@+id/lesseBudget"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="10dp"
             android:ems="10"
+            android:hint="Budget(Approx)"
             android:background="#fafafa"
-            android:hint="Select Locality"
-            android:inputType="textMultiLine"
-            android:paddingLeft="10dp"/>
+            android:inputType="number" />
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -184,12 +238,7 @@
        android:orientation="horizontal"
 
         >
-        <TableLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/lessePropertiesTable"
-            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -201,6 +250,7 @@
         android:background="#fafafa"
         >
         <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lesseSignatureView"
@@ -217,34 +267,33 @@
         android:layout_height="38dp"
 
         android:orientation="horizontal"
-        android:weightSum="9"
+        android:weightSum="9.5"
         android:background="#eeeeee"
         >
-        <Button
-            android:layout_weight="3"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Specify"
-            android:id="@+id/lessePropertyAddButton"
-             />
+
 
         <Button
-            android:layout_weight="3"
+            android:layout_weight="4.5"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Sign"
             android:id="@+id/addSig"
+            android:background="#1976d2"
              />
-
+        <LinearLayout
+            android:layout_weight="0.50"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            />
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_weight="3"
+            android:layout_weight="4.5"
             android:id="@+id/lesseSubmit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Send"
+            android:background="#1976d2"
             />
 
     </LinearLayout>

@@ -5,25 +5,98 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_lesse">LesseActivity</string>
     <string name="lesse_form_header">Lesse</string>
-    <string-array name="property_subtype_array">
-        <item>House</item>
-        <item>Apartment</item>
-        <item>Office</item>
-        <item>Showroom</item>
-        <item>Shop</item>
-        <item>Warehouse</item>
-        <item>Godown</item>
+
+
+    <string-array name="propertytype">
+        <item>Agricultural Property</item>
+        <item>Commercial Property</item>
+        <item>Industrial Property</item>
+        <item>Residential property</item>
+<item>Select Category</item>
+
+    </string-array>
+    <string-array name="residential">
+        <item>Builder Floor</item>
+        <item>Residential Apartment</item>
+        <item>Independent House/Villa</item>
+        <item>Residential Plot</item>
+        <item>Studio Apartment</item>
+        <item>Other Residential</item>
+        <item>Select Specific Type</item>
+
+    </string-array>
+    <string-array name="commercial">
+        <item>Basement</item>
+        <item>Building</item>
+        <item>Commercial Plot</item>
+        <item>Godownn</item>
+        <item>Hotel / Resort</item>
+        <item>Office Space</item>
+        <item>Shop/Showroom</item>
+        <item>Select Specific Type</item>
+    </string-array>
+    <string-array name="industrial">
+        <item>Cold Storage</item>
         <item>Factory</item>
+        <item>Industrial Building</item>
+        <item>Industrial Plot </item>
+        <item>Industrial Shed</item>
+        <item>Other Industrial</item>
+        <item>Warehouse</item>
+
+        <item>Select Specific Type</item>
+
+    </string-array>
+
+    <string-array name="agriculture">
+        <item>Agricultural Plot/Land</item>
+        <item>Farm House</item>
+        <item>Select Specific Type</item>
+    </string-array>
+
+    <string-array name="city">
+
+        <item>ajmer</item>
+        <item>Alwar</item>
+        <item>Bikaner</item>
+        <item>Bhilwara</item>
+        <item>jaisalmer</item>
+        <item>jhunjhunu</item>
+        <item>jodhpur</item>
+        <item>sikar</item>
+        <item>Kota</item>
+        <item>udaipur</item>
+        <item>Jaipur</item>
+
+    </string-array>
+
+    <string-array name="property_subtype_array">
+
+        <item>Apartment</item>
+        <item>Factory</item>
+        <item>Godown</item>
+        <item>House</item>
+        <item>Office</item>
+        <item>Shop</item>
+        <item>Showroom</item>
+        <item>Warehouse</item>
+
+
         <item>Plot</item>
         <item>Land</item>
         <item>Select Specific Type</item>
     </string-array>
     <string-array name="property_measurements">
-        <item>Sq. Ft.</item>
-        <item>Sq. Yd.</item>
+        <item>Acres</item>
         <item>BHK</item>
         <item>Bigha</item>
-    </string-array>
+
+        <item>Sq. Ft.</item>
+        <item>Sq.Mtrs.</item>
+        <item>Sq. Yd.</item>
+        <item>Unit</item>
+        <item>Select Specific Type</item>
+     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -46,6 +119,44 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_flash">Flash</string>
+    <string name="title_activity_tnd_c">TndC</string>
+    <string name="title_activity_checktandc">checktandc</string>
+    <string name="title_activity_membership">Membership</string>
+    <string name="title_activity_why">Why</string>
+    <string name="title_activity_grivences">Grivences</string>
+    <string name="title_activity_rarinfo">rarinfo</string>
+    <string name="title_activity_contactus">Contactus</string>
+    <string name="title_activity_privacypolicy">Privacypolicy</string>
+    <string name="title_activity_info">Info</string>
+    <string name="title_activity_requirement">Requirement</string>
+    <string name="title_activity_search">search</string>
+    <string name="title_activity_postproperty">Postproperty</string>
+    <string name="title_activity_p">p</string>
+    <string name="title_activity_check">check</string>
+    <string name="title_activity_propertyshown">Property Shown</string>
+    <string name="replication_running">Replication is running</string>
+    <string name="replication_completed">Replication completed</string>
+    <string name="replication_error">Replication error</string>
+    <string name="pref_summary_api_key">The api key used to replicate to/from your cloudant account.</string>
+    <string name="pref_title_api_key">API Key</string>
+    <string name="pref_summary_api_password">The api password used to replicate to/from your cloudant account.</string>
+    <string name="pref_title_api_password">API Password</string>
+    <string name="pref_summary_username">You cloudant user name, and it is also used to determine your cloudant server url.</string>
+    <string name="pref_title_username">Cloudant user name</string>
+    <string name="pref_summary_dbname">You cloudant db name, and this is the db used in replication.</string>
+    <string name="pref_title_dbname">Cloudant db name</string>
+    <string name="activity_settings_title">Settings</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    <string name="action_new">New</string>
 
+    <string name="action_download">Download (Pull)</string>
+    <string name="action_upload">Upload (Push)</string>
+    <string name="action_delete">Delete</string>
+    <string name="new_task">New Task</string>
+    <string name="enter_description">Enter task description</string>
+    <string name="task_not_created">Task not created because description is empty</string>
+    <string name="completed">COMPLETED</string>
 
 </resources>

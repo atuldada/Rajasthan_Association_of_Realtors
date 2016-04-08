@@ -56,7 +56,7 @@ public class Propertyshown extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                File imgFile = new  File(signaturePath);
+            //    File imgFile = new  File(signaturePath);
                 EditText name = (EditText) findViewById(R.id.lesseName);
                 EditText phone = (EditText) findViewById(R.id.lessePhone);
                 EditText email=(EditText) findViewById(R.id.email);
@@ -77,7 +77,7 @@ public class Propertyshown extends ActionBarActivity {
                 String mob=name.getText().toString();
                 String nam=name.getText().toString();
 
-                if(imgFile.exists()) {
+                if(true/*imgFile.exists()*/) {
                     Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                     // set the type to 'email'
                     emailIntent.setType("vnd.android.cursor.dir/email");
@@ -86,9 +86,9 @@ public class Propertyshown extends ActionBarActivity {
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
                     // the attachment
                     ArrayList<Uri> uris = new ArrayList<Uri>();
-                    uris.add(Uri.fromFile(imgFile));
+                 //   uris.add(Uri.fromFile(imgFile));
                     try {
-                        InputStream is = getAssets().open("tandc.html");
+                        InputStream is = getAssets().open("tandc.txt");
                         byte[] buffer = new byte[is.available()];
                         is.read(buffer);
                         String xpath = Environment.getExternalStorageDirectory().toString();

@@ -14,8 +14,10 @@
 
 package io.jaipurheights.rar;
 
+import com.cloudant.sync.datastore.Attachment;
 import com.cloudant.sync.datastore.BasicDocumentRevision;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,10 +36,19 @@ public class Task {
 
     private Task() {}
 
-    public Task(String desc) {
+    public Task(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename) {
         this.setDescription(desc);
+        this.setCity(name);
+        this.setPhone(phone);
+        this.setSubdescription(subdescription);
+        this.setCity(city);
+        this.setLocation(location);
+        this.setPrice(price);
+        this.setArea(area);
+        this.setInfo(info);
         this.setCompleted(false);
         this.setType(DOC_TYPE);
+        this.setImagename(imagename);
     }
 
     // this is the revision in the database representing this task
@@ -73,7 +84,8 @@ public class Task {
     private String price =" ";
     private String area =" ";
     private String info =" ";
-
+    private String imagename;
+    private String id="image";
 
     public String getSubdescription(){
     return this.subdescription;
@@ -106,6 +118,12 @@ public class Task {
     public String getNamee(){
         return this.name;
     }
+    public String getImagename(){
+        return this.imagename;
+    }
+    public String getId(){
+        return this.id;
+    }
     public void setLocation(String desc) {
         this.location = desc;
     }
@@ -136,10 +154,16 @@ public class Task {
     public void setCity(String desc) {
         this.city = desc;
     }
+    public void setImagename(String desc) {
+        this.imagename = desc;
+    }
+    public void setId(String desc) {
+        this.id = desc;
+    }
 
     @Override
     public String toString() {
-        return "{ desc: " + getDescription() + ", completed: " + isCompleted()  + ", name: " + getNamee() + ", phone: " + getPhone() + ", Address: " + getAddress() + ", subdescription: " + getSubdescription() + ", location: " + getLocation()+ ", city: " + getCity()  + ", price: " + getPrice() + ", Area: " + getArea() + ", Information: " + getInfo()+ "}";
+        return "{ desc: " + getDescription() + ", completed: " + isCompleted()  + ", name: " + getNamee() + ", phone: " + getPhone() + ", Address: " + getAddress() + ", subdescription: " + getSubdescription() + ", location: " + getLocation()+ ", city: " + getCity()  + ", price: " + getPrice() + ", Area: " + getArea() + ", Information: " + getInfo()+ ", imagename: " + getImagename()  + "}";
     }
 
     public static Task fromRevision(BasicDocumentRevision rev) {
@@ -160,6 +184,8 @@ public class Task {
             t.setArea((String) map.get("area"));
             t.setInfo((String) map.get("info"));
             t.setCity((String) map.get("city"));
+            t.setImagename((String) map.get("imagename"));
+           t.setId((String) map.get("_id"));
             return t;
         }
         return null;
@@ -180,6 +206,8 @@ public class Task {
         map.put("price", price);
         map.put("area", area);
         map.put("info", info);
+        map.put("imagename",imagename);
+        map.put("id",id);
         return map;
     }
 
