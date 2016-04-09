@@ -38,7 +38,7 @@ public class Task {
 
     public Task(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename) {
         this.setDescription(desc);
-        this.setCity(name);
+        this.setName(name);
         this.setPhone(phone);
         this.setSubdescription(subdescription);
         this.setCity(city);

@@ -118,7 +118,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
 
 
         Button post=(Button)findViewById(R.id.lesseSubmit);
-        final EditText description = (EditText) findViewById(R.id.lesseName);
+        final EditText description = (EditText) findViewById(R.id.c);
         final EditText name = (EditText) findViewById(R.id.lesseName);
         final EditText phone = (EditText) findViewById(R.id.lessePhone);
        // EditText email=(EditText) findViewById(R.id.email);

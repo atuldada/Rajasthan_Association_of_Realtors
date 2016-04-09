@@ -285,7 +285,7 @@
                     >
 
                     <EditText
-                        android:id="@+id/ExtraInformation"
+                        android:id="@+id/c"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ems="10"
