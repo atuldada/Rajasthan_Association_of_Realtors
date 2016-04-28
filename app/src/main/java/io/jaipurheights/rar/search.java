@@ -24,7 +24,6 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
 
-
 public class search extends ListActivity
        implements SharedPreferences.OnSharedPreferenceChangeListener
     {
