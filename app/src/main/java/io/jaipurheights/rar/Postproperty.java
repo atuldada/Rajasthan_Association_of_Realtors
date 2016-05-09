@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -84,6 +85,27 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
         // uses information managed by shared preference.
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.registerOnSharedPreferenceChangeListener(this);
+        final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
+        final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+
+
+        mCheckBox2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheckBox2.isChecked())
+                    mCheckBox1.setChecked(false);
+
+            }
+        });
+
+        mCheckBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCheckBox1.isChecked())
+                    mCheckBox2.setChecked(false);
+
+            }
+        });
 
         // Protect creation of static variable.
         if (sTasks == null) {
@@ -221,6 +243,8 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
         sTasks.createDocument(t, path);
         reloadTasksFromModel();
     }
+
+
            void replicationComplete() {
             //   reloadTasksFromModel();
 
@@ -231,6 +255,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
               // dismissDialog(DIALOG_PROGRESS);
 
            }
+
 
            /**
             * Called by TasksModel when it receives a replication error callback.
@@ -257,6 +282,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
                 throw new RuntimeException("No dialog defined for id: " + id);
         }
     }
+
     public Dialog createProgressDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final View v = this.getLayoutInflater().inflate(R.layout.dialog_loading, null);
@@ -303,7 +329,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
 
         }
     }
-    @Override
+ /*   @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_lesse, menu);
@@ -324,7 +350,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
 
         return super.onOptionsItemSelected(item);
     }
-
+*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

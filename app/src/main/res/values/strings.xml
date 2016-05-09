@@ -6,7 +6,6 @@
     <string name="title_activity_lesse">LesseActivity</string>
     <string name="lesse_form_header">Lesse</string>
 
-
     <string-array name="propertytype">
         <item>Agricultural Property</item>
         <item>Commercial Property</item>
@@ -29,7 +28,7 @@
         <item>Basement</item>
         <item>Building</item>
         <item>Commercial Plot</item>
-        <item>Godownn</item>
+        <item>Godown</item>
         <item>Hotel / Resort</item>
         <item>Office Space</item>
         <item>Shop/Showroom</item>
@@ -95,7 +94,7 @@
         <item>Sq.Mtrs.</item>
         <item>Sq. Yd.</item>
         <item>Unit</item>
-        <item>Select Specific Type</item>
+
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

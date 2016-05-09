@@ -15,7 +15,8 @@
 package io.jaipurheights.rar;
 
 import com.cloudant.sync.datastore.Attachment;
-import com.cloudant.sync.datastore.BasicDocumentRevision;
+
+import com.cloudant.sync.datastore.DocumentRevision;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -52,8 +53,8 @@ public class Task {
     }
 
     // this is the revision in the database representing this task
-    private BasicDocumentRevision rev;
-    public BasicDocumentRevision getDocumentRevision() {
+    private DocumentRevision rev;
+    public DocumentRevision getDocumentRevision() {
         return rev;
     }
 
@@ -90,7 +91,6 @@ public class Task {
     public String getSubdescription(){
     return this.subdescription;
     }
-
     public String getDescription() {
         return this.description;
     }
@@ -166,11 +166,12 @@ public class Task {
         return "{ desc: " + getDescription() + ", completed: " + isCompleted()  + ", name: " + getNamee() + ", phone: " + getPhone() + ", Address: " + getAddress() + ", subdescription: " + getSubdescription() + ", location: " + getLocation()+ ", city: " + getCity()  + ", price: " + getPrice() + ", Area: " + getArea() + ", Information: " + getInfo()+ ", imagename: " + getImagename()  + "}";
     }
 
-    public static Task fromRevision(BasicDocumentRevision rev) {
+    public static Task fromRevision(DocumentRevision rev) {
         Task t = new Task();
         t.rev = rev;
         // this could also be done by a fancy object mapper
-        Map<String, Object> map = rev.asMap();
+        Map<String, Object> map = rev.getBody().asMap();
+
         if(map.containsKey("type") && map.get("type").equals(Task.DOC_TYPE)) {
             t.setType((String) map.get("type"));
             t.setCompleted((Boolean) map.get("completed"));
@@ -185,7 +186,8 @@ public class Task {
             t.setInfo((String) map.get("info"));
             t.setCity((String) map.get("city"));
             t.setImagename((String) map.get("imagename"));
-           t.setId((String) map.get("_id"));
+           t.setId((rev.getId()));
+            System.out.println((rev.getId())+"testttttttttttttttt");
             return t;
         }
         return null;

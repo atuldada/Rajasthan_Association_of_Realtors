@@ -43,12 +43,16 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="For Sale"/>
+                        android:text="For Sale"
+                        android:checked="false"
+                        android:id="@+id/onep" />
                     <CheckBox
 
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="For Rent-Out"/>
+                        android:text="For Rent-Out"
+                        android:checked="false"
+                        android:id="@+id/twop" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

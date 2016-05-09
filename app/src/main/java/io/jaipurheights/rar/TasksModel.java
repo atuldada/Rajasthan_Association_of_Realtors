@@ -23,7 +23,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.cloudant.sync.datastore.Attachment;
-import com.cloudant.sync.datastore.BasicDocumentRevision;
+//import com.cloudant.sync.datastore.BasicDocumentRevision;
 import com.cloudant.sync.datastore.ConflictException;
 import com.cloudant.sync.datastore.Datastore;
 import com.cloudant.sync.datastore.DatastoreManager;
@@ -31,7 +31,7 @@ import com.cloudant.sync.datastore.DatastoreNotCreatedException;
 import com.cloudant.sync.datastore.DocumentBodyFactory;
 import com.cloudant.sync.datastore.DocumentException;
 import com.cloudant.sync.datastore.DocumentRevision;
-import com.cloudant.sync.datastore.MutableDocumentRevision;
+//import com.cloudant.sync.datastore.MutableDocumentRevision;
 import com.cloudant.sync.datastore.UnsavedFileAttachment;
 import com.cloudant.sync.notifications.ReplicationCompleted;
 import com.cloudant.sync.notifications.ReplicationErrored;
@@ -122,15 +122,15 @@ class TasksModel {
      * @return new revision of the document
      */
     public Task createDocument(Task task,String path) {
-        MutableDocumentRevision rev = new MutableDocumentRevision();
-        rev.body = DocumentBodyFactory.create(task.asMap());
+        DocumentRevision rev = new DocumentRevision();
+        rev.setBody(DocumentBodyFactory.create(task.asMap()));
 
         File file1 =new File(path);
 
         UnsavedFileAttachment att1 = new UnsavedFileAttachment(file1,"image/jpeg");
-        rev.attachments.put(att1.name, att1);
+        rev.getAttachments().put(att1.name, att1);
         try {
-            BasicDocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
+            DocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
             return Task.fromRevision(created);
         } catch (DocumentException de) {
             return null;
@@ -144,7 +144,7 @@ class TasksModel {
      * @throws ConflictException if the task passed in has a rev which doesn't
      *      match the current rev in the datastore.
      */
-    public Task updateDocument(Task task) throws ConflictException {
+ /*   public Task updateDocument(Task task) throws ConflictException {
         MutableDocumentRevision rev = task.getDocumentRevision().mutableCopy();
         rev.body = DocumentBodyFactory.create(task.asMap());
         try {
@@ -154,28 +154,28 @@ class TasksModel {
             return null;
         }
     }
-
+*/
     /**
      * Deletes a Task document within the datastore.
      * @param task task to delete
      * @throws ConflictException if the task passed in has a rev which doesn't
      *      match the current rev in the datastore.
      */
-    public void deleteDocument(Task task) throws ConflictException {
+  /*  public void deleteDocument(Task task) throws ConflictException {
         this.mDatastore.deleteDocumentFromRevision(task.getDocumentRevision());
     }
-
+*/
     /**
      * <p>Returns all {@code Task} documents in the datastore.</p>
      */
     public List<Task> allTasks() {
 
         int nDocs = this.mDatastore.getDocumentCount();
-        List<BasicDocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
+        List<DocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
         List<Task> tasks = new ArrayList<Task>();
 
         // Filter all documents down to those of type Task.
-        for(BasicDocumentRevision rev : all) {
+        for(DocumentRevision rev : all) {
             Task t = Task.fromRevision(rev);
             if (t != null) {
                 tasks.add(t);

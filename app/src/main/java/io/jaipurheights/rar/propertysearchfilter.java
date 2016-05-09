@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -40,9 +41,32 @@ public class propertysearchfilter extends ActionBarActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getApplicationContext(),
+           //     final EditText description = (EditText) findViewById(R.id.c);
+                final EditText name = (EditText) findViewById(R.id.company);
+             //   final EditText phone = (EditText) findViewById(R.id.lessePhone);
+                // EditText email=(EditText) findViewById(R.id.email);
+                EditText add=(EditText) findViewById(R.id.lesseAddress);
+                final Spinner category = (Spinner) findViewById(R.id.lessePropType);
+                final Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
+                final Spinner city = (Spinner) findViewById(R.id.city);
+                final EditText location=(EditText) findViewById(R.id.lesseLocations);
+                final EditText budget=(EditText) findViewById(R.id.lesseBudget);
+                final EditText area=(EditText) findViewById(R.id.lesseMeasureCount);
+                final Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+                Intent intent = new Intent();
+
+                intent.putExtra("description",category.getSelectedItem().toString());
+                intent.putExtra("subdescription",type.getSelectedItem().toString());
+                intent.putExtra("location",location.getText().toString());
+                intent.putExtra("city",city.getSelectedItem().toString());
+                intent.putExtra("price",budget.getText().toString());
+                intent.putExtra("Area",area.getText().toString()+unit.getSelectedItem().toString());
+
+                intent.putExtra("name",name.getText().toString());
+                setResult(RESULT_OK, intent);
+              /*  Toast.makeText(getApplicationContext(),
                             "Comming Soon...",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show();*/
                 finish();
 
             }
@@ -115,7 +139,7 @@ public class propertysearchfilter extends ActionBarActivity {
 
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_lesse, menu);
@@ -136,7 +160,7 @@ public class propertysearchfilter extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

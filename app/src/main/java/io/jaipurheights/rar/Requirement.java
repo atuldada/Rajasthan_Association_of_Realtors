@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -36,6 +37,27 @@ public class Requirement extends ActionBarActivity {
         setContentView(R.layout.activity_requirement);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
+        final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+
+
+        mCheckBox2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheckBox2.isChecked())
+                    mCheckBox1.setChecked(false);
+
+            }
+        });
+
+        mCheckBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCheckBox1.isChecked())
+                    mCheckBox2.setChecked(false);
+
+            }
+        });
 
     /*    Button post=(Button)findViewById(R.id.lesseSubmit);
         post.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +227,7 @@ public class Requirement extends ActionBarActivity {
 
     }
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_lesse, menu);
@@ -226,7 +248,7 @@ public class Requirement extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

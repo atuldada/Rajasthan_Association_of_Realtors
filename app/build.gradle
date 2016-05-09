@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-       multiDexEnabled true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -65,7 +65,3 @@ dependencies {
     compile 'com.github.yesidlazaro:GmailBackground:1.1'
 
 }
-
-
-
-

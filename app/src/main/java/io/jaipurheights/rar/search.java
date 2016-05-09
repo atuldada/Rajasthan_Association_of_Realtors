@@ -32,7 +32,7 @@ public class search extends ListActivity
     private static final int DIALOG_NEW_TASK = 1;
     private static final int DIALOG_PROGRESS = 2;
     static final String LOG_TAG = "search activity";
-
+        static final int filter_result = 20;
     // Main data model object
     private static TasksModelsearch sTasks;
     private TaskAdapter mTaskAdapter;
@@ -71,7 +71,7 @@ public class search extends ListActivity
             public void onClick(View view) {
 
                 Intent i = new Intent(search.this, propertysearchfilter.class);
-                startActivity(i);
+                startActivityForResult(i, filter_result);
 
             }
         });
@@ -140,5 +140,27 @@ public class search extends ListActivity
 
 
     }
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+            // Check which request we're responding to
+            if (requestCode == filter_result) {
+                // Make sure the request was successful
+                if (resultCode == RESULT_OK) {
 
+                    String description=data.getStringExtra("description");
+                    String subdescription=data.getStringExtra("subdescription");
+                    String location=data.getStringExtra("location");
+                    String city=data.getStringExtra("city");
+                    String price=data.getStringExtra("price");
+                    String Area=data.getStringExtra("Area");
+
+                   String name=data.getStringExtra("name");
+                    List<Task> tasks = this.sTasks.searchTasks(description,subdescription,location,city, price,Area);
+                    this.mTaskAdapter = new TaskAdapter(this, tasks);
+                    this.setListAdapter(this.mTaskAdapter);
+
+                    // Do something name
+                }
+            }
+        }
 }

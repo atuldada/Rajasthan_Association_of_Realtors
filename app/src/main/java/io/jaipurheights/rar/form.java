@@ -1,6 +1,7 @@
 package io.jaipurheights.rar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -101,6 +102,8 @@ public class form extends ActionBarActivity {
         addSignatureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent i = new Intent(form.this, SignatureActivity.class);
                 startActivityForResult(i, SIGNATURE_ACTIVITY);
             }
@@ -118,6 +121,7 @@ public class form extends ActionBarActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 File imgFile = new  File(signaturePath);
                 EditText name = (EditText) findViewById(R.id.lesseName);
@@ -186,10 +190,10 @@ public class form extends ActionBarActivity {
 
                     }
                 }
-              /*  else if(mob.length()>9)
+                else if(mob.length()>9)
                 {
                     Toast.makeText(form.this, "Invalid Mobile No.", Toast.LENGTH_SHORT);
-                }*/
+                }
                 else {
                          Toast.makeText(form.this, "Incomplete Form", Toast.LENGTH_SHORT);
                 }

@@ -21,25 +21,30 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.cloudant.sync.datastore.BasicDocumentRevision;
+//import com.cloudant.sync.datastore.BasicDocumentRevision;
 import com.cloudant.sync.datastore.ConflictException;
 import com.cloudant.sync.datastore.Datastore;
 import com.cloudant.sync.datastore.DatastoreManager;
 import com.cloudant.sync.datastore.DatastoreNotCreatedException;
 import com.cloudant.sync.datastore.DocumentBodyFactory;
 import com.cloudant.sync.datastore.DocumentException;
-import com.cloudant.sync.datastore.MutableDocumentRevision;
+import com.cloudant.sync.datastore.DocumentRevision;
+//import com.cloudant.sync.datastore.MutableDocumentRevision;
 import com.cloudant.sync.notifications.ReplicationCompleted;
 import com.cloudant.sync.notifications.ReplicationErrored;
+import com.cloudant.sync.query.QueryResult;
 import com.cloudant.sync.replication.Replicator;
 import com.cloudant.sync.replication.ReplicatorBuilder;
 import com.google.common.eventbus.Subscribe;
+import com.cloudant.sync.query.IndexManager;
 
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -116,7 +121,7 @@ class TasksModelsearch {
      * @param task task to create
      * @return new revision of the document
      */
-    public Task createDocument(Task task) {
+   /* public Task createDocument(Task task) {
         MutableDocumentRevision rev = new MutableDocumentRevision();
         rev.body = DocumentBodyFactory.create(task.asMap());
         try {
@@ -126,7 +131,7 @@ class TasksModelsearch {
             return null;
         }
     }
-
+*/
     /**
      * Updates a Task document within the datastore.
      * @param task task to update
@@ -134,7 +139,7 @@ class TasksModelsearch {
      * @throws ConflictException if the task passed in has a rev which doesn't
      *      match the current rev in the datastore.
      */
-    public Task updateDocument(Task task) throws ConflictException {
+/*    public Task updateDocument(Task task) throws ConflictException {
         MutableDocumentRevision rev = task.getDocumentRevision().mutableCopy();
         rev.body = DocumentBodyFactory.create(task.asMap());
         try {
@@ -144,7 +149,7 @@ class TasksModelsearch {
             return null;
         }
     }
-
+*/
     /**
      * Deletes a Task document within the datastore.
      * @param task task to delete
@@ -152,22 +157,109 @@ class TasksModelsearch {
      *      match the current rev in the datastore.
      */
     public void deleteDocument(Task task) throws ConflictException {
-        this.mDatastore.deleteDocumentFromRevision(task.getDocumentRevision());
+       // this.mDatastore.deleteDocumentFromRevision(task.getDocumentRevision());
     }
 
     /**
-     * <p>Returns all {@code Task} documents in the datastore.</p>
+     *<p>Returns all {@code Task} documents in the datastore.</p>
      */
-    public List<Task> allTasks() {
+    public List<Task> searchTasks(String description,String subdescription,String location,String city,String price,String Area) {
         int nDocs = this.mDatastore.getDocumentCount();
-        List<BasicDocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
+        List<DocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
         List<Task> tasks = new ArrayList<Task>();
 
         // Filter all documents down to those of type Task.
-        for(BasicDocumentRevision rev : all) {
+        IndexManager im = new IndexManager(mDatastore);
+        List<Object> indexFields = new ArrayList<Object>();
+        indexFields.add("description");
+        indexFields.add("completed");
+        indexFields.add("name");
+        indexFields.add("phone");
+        indexFields.add("Address");
+        indexFields.add("subdescription");
+        indexFields.add("location");
+        indexFields.add("city");
+        indexFields.add("price");
+        indexFields.add("Area");
+        indexFields.add("Information");
+        indexFields.add("imagename");
+// Create the index
+        im.ensureIndexed(indexFields,"description");
+        Map<String, Object> query = new HashMap<String, Object>();
+        if(description!=null)
+        query.put("description", description);
+        if(subdescription!=null)
+            query.put("subdescription", subdescription);
+
+    /*    if(location!=null)
+            query.put("location", location);*/
+        if(city!=null)
+            query.put("city", city);
+    /*    if(price!=null)
+            query.put("price",price);
+        if(Area!=null)
+            query.put("Area",Area);
+*/
+        QueryResult result = im.find(query);
+
+for(DocumentRevision revi:result)
+{
+    System.out.println(revi.getId()+"hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+}
+        for(DocumentRevision rev :result) {
+
             Task t = Task.fromRevision(rev);
             if (t != null) {
+
                 tasks.add(t);
+
+            }
+        }
+
+        return tasks;
+    }
+
+    public List<Task> allTasks() {
+        int nDocs = this.mDatastore.getDocumentCount();
+        List<DocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
+
+        List<Task> tasks = new ArrayList<Task>();
+
+        // Filter all documents down to those of type Task.
+   /*     IndexManager im = new IndexManager(mDatastore);
+        List<Object> indexFields = new ArrayList<Object>();
+        indexFields.add("description");
+        indexFields.add("completed");
+        indexFields.add("name");
+        indexFields.add("phone");
+        indexFields.add("Address");
+        indexFields.add("subdescription");
+        indexFields.add("location");
+        indexFields.add("city");
+        indexFields.add("price");
+        indexFields.add("Area");
+        indexFields.add("Information");
+        indexFields.add("imagename");
+
+// Create the index
+        im.ensureIndexed(indexFields,"description");
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("description", "hs");
+        QueryResult result = im.find(query);
+
+        for(DocumentRevision revi:result)
+        {
+            System.out.println(revi.getId()+"hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        }
+
+        */
+        for(DocumentRevision rev :all) {
+
+            Task t = Task.fromRevision(rev);
+            if (t != null) {
+
+                tasks.add(t);
+
             }
         }
 
@@ -264,6 +356,7 @@ class TasksModelsearch {
         // We recommend always using HTTPS to talk to Cloudant.
         return new URI("https", apiKey + ":" + apiSecret, host, 443, "/" + dbName, null, null);
     }
+
 
     //
     // REPLICATIONLISTENER IMPLEMENTATION
