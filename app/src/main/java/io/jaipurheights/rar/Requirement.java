@@ -19,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,9 +32,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 
-public class Requirement extends ActionBarActivity {
+public class Requirement extends ActionBarActivity implements PlaceSelectionListener {
     private int SIGNATURE_ACTIVITY = 101;
     private String signaturePath = null;
+    EditText location;
+    String TAG="location";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,13 @@ public class Requirement extends ActionBarActivity {
         setContentView(R.layout.activity_requirement);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        autocompleteFragment.setHint("Location");
+        autocompleteFragment.setOnPlaceSelectedListener(this);
         final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
         final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
 
@@ -96,21 +110,18 @@ public class Requirement extends ActionBarActivity {
                             R.array.residential, android.R.layout.simple_spinner_dropdown_item);
                     lesseSubTypeSpinner.setAdapter(adapterc);
                     lesseSubTypeSpinner.setSelection(adapterc.getCount() - 1);
-                }
-                else if((msupplier.equals("Commercial Property")))
-                {ArrayAdapter<CharSequence> adapterc = ArrayAdapter.createFromResource(Requirement.this,
-                        R.array.commercial, android.R.layout.simple_spinner_dropdown_item);
+                } else if ((msupplier.equals("Commercial Property"))) {
+                    ArrayAdapter<CharSequence> adapterc = ArrayAdapter.createFromResource(Requirement.this,
+                            R.array.commercial, android.R.layout.simple_spinner_dropdown_item);
                     lesseSubTypeSpinner.setAdapter(adapterc);
-                    lesseSubTypeSpinner.setSelection(adapterc.getCount() - 1);}
-                else if ((msupplier.equals("Industrial Property"))){
+                    lesseSubTypeSpinner.setSelection(adapterc.getCount() - 1);
+                } else if ((msupplier.equals("Industrial Property"))) {
                     ArrayAdapter<CharSequence> adapterc = ArrayAdapter.createFromResource(Requirement.this,
                             R.array.industrial, android.R.layout.simple_spinner_dropdown_item);
                     lesseSubTypeSpinner.setAdapter(adapterc);
                     lesseSubTypeSpinner.setSelection(adapterc.getCount() - 1);
 
-                }
-                else if (msupplier.equals("Agricultural Property"))
-                {
+                } else if (msupplier.equals("Agricultural Property")) {
                     ArrayAdapter<CharSequence> adapterc = ArrayAdapter.createFromResource(Requirement.this,
                             R.array.agriculture, android.R.layout.simple_spinner_dropdown_item);
                     lesseSubTypeSpinner.setAdapter(adapterc);
@@ -132,33 +143,36 @@ public class Requirement extends ActionBarActivity {
                 R.array.property_measurements, android.R.layout.simple_spinner_dropdown_item);
         lesseMeasurementUnitSpinner.setAdapter(adapter1);
         lesseMeasurementUnitSpinner.setSelection(adapter1.getCount() - 1);
-        Spinner city = (Spinner) findViewById(R.id.city);
+      final   Spinner city = (Spinner) findViewById(R.id.city);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(Requirement.this,
                 R.array.city, android.R.layout.simple_spinner_dropdown_item);
         city.setAdapter(adapter3);
         city.setSelection(adapter3.getCount() - 1);
 
 
-        Button sendButton = (Button) findViewById(R.id.lesseSubmit);
+     final    Button sendButton = (Button) findViewById(R.id.lesseSubmit);
+        final    EditText name = (EditText) findViewById(R.id.lesseName);
+        final    EditText phone = (EditText) findViewById(R.id.lessePhone);
+        //    EditText email = (EditText) findViewById(R.id.email);
+        //    EditText add = (EditText) findViewById(R.id.lesseAddress);
+        final    Spinner category = (Spinner) findViewById(R.id.lessePropType);
+        final    Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
+
+        location = (EditText) findViewById(R.id.lesseLocations);
+        final    EditText budget = (EditText) findViewById(R.id.lesseBudget);
+        final    EditText area = (EditText) findViewById(R.id.lesseMeasureCount);
+        final    Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                EditText name = (EditText) findViewById(R.id.lesseName);
-                EditText phone = (EditText) findViewById(R.id.lessePhone);
-            //    EditText email = (EditText) findViewById(R.id.email);
-            //    EditText add = (EditText) findViewById(R.id.lesseAddress);
-                Spinner category = (Spinner) findViewById(R.id.lessePropType);
-                Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
-                Spinner city = (Spinner) findViewById(R.id.city);
-                EditText location = (EditText) findViewById(R.id.lesseLocations);
-                EditText budget = (EditText) findViewById(R.id.lesseBudget);
-                EditText area = (EditText) findViewById(R.id.lesseMeasureCount);
-                Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+
 
                 String mob = name.getText().toString();
                 String nam = name.getText().toString();
+
 
                 if (true) {
                     Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
@@ -249,6 +263,32 @@ public class Requirement extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 */
+  public void onPlaceSelected(Place place) {
+      Log.i(TAG, "Place Selected: " + place.getName());
+
+      // Format the returned place's details and display them in the TextView.
+      location.setText((place.getAddress()).toString());
+
+      CharSequence attributions = place.getAttributions();
+       /* if (!TextUtils.isEmpty(attributions)) {
+            mPlaceAttribution.setText(" ");
+        } else {
+            mPlaceAttribution.setText("");
+        }
+        */
+  }
+
+    /**
+     * Callback invoked when PlaceAutocompleteFragment encounters an error.
+     */
+
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

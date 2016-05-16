@@ -1,6 +1,8 @@
 package io.jaipurheights.rar;
 import com.cloudant.sync.datastore.ConflictException;
 import  com.cloudant.sync.datastore.DatastoreManager;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,6 +11,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +23,9 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -44,12 +50,17 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
-public class Postproperty extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener
+public class Postproperty extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener , PlaceSelectionListener
 {   String path;
     ImageView img,img1;
     int column_index;
     Intent intent=null;
+     EditText location;
     // Declare our Views, so we can access them later
     String logo,imagePath,Logo;
     Cursor cursor;
@@ -69,7 +80,7 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
            static final String SETTINGS_CLOUDANT_DB = "pref_key_dbname";
            static final String SETTINGS_CLOUDANT_API_KEY = "pref_key_api_key";
            static final String SETTINGS_CLOUDANT_API_SECRET = "pref_key_api_password";
-
+           String TAG="location";
            // Main data model object
            private static TasksModel sTasks;
            private TaskAdapter mTaskAdapter;
@@ -148,12 +159,19 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
         final Spinner category = (Spinner) findViewById(R.id.lessePropType);
         final Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
         final Spinner city = (Spinner) findViewById(R.id.city);
-        final EditText location=(EditText) findViewById(R.id.lesseLocations);
+         location=(EditText) findViewById(R.id.lesseLocations);
         final EditText budget=(EditText) findViewById(R.id.lesseBudget);
         final EditText area=(EditText) findViewById(R.id.lesseMeasureCount);
         final Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
         //final EditText city = (EditText) findViewById(R.id.lesseName);
      //   final EditText location = (EditText) findViewById(R.id.lesseName);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        autocompleteFragment.setOnPlaceSelectedListener(this);
+        autocompleteFragment.setHint("Location");
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,11 +250,42 @@ public class Postproperty extends ActionBarActivity implements SharedPreferences
         city.setSelection(adapter3.getCount() - 1);
 
     }
+
     private void reloadTasksFromModel() {
         List<Task> tasks = this.sTasks.allTasks();
         this.mTaskAdapter = new TaskAdapter(this, tasks);
 
     }
+    public void onPlaceSelected(Place place) {
+        Log.i(TAG, "Place Selected: " + place.getName());
+
+        // Format the returned place's details and display them in the TextView.
+        location.setText((place.getAddress()).toString());
+
+        CharSequence attributions = place.getAttributions();
+       /* if (!TextUtils.isEmpty(attributions)) {
+            mPlaceAttribution.setText(" ");
+        } else {
+            mPlaceAttribution.setText("");
+        }
+        */
+    }
+
+    /**
+     * Callback invoked when PlaceAutocompleteFragment encounters an error.
+     */
+
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Helper method to format information about a place nicely.
+     */
+
 
     private void createNewTask(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename) {
         Task t = new Task(desc,name,phone,subdescription,city,location,price,area,imagename);

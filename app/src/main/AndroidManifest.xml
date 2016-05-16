@@ -26,6 +26,10 @@
         android:icon="@drawable/sidelogo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyArbYLphlJODJfiBeDh8y4RY-5A3kNSKwU"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />

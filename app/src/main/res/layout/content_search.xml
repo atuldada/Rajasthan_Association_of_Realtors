@@ -13,22 +13,26 @@
     tools:showIn="@layout/activity_search"
     tools:context="io.jaipurheights.rar.Form"
     android:background="#eeeeee">
+
     <ScrollView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
 
         xmlns:android="http://schemas.android.com/apk/res/android" >
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10">
+
         <LinearLayout
             android:layout_weight="9"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
@@ -36,22 +40,22 @@
                 android:gravity="center"
                 >
                 <CheckBox
-
+                    android:id="@+id/onep"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Sell"/>
                 <CheckBox
-
+                    android:id="@+id/twop"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Rent-out"/>
                 <CheckBox
-
+                    android:id="@+id/threep"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Buy"/>
                 <CheckBox
-
+                    android:id="@+id/fourp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Rent-in"/>
@@ -115,17 +119,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="#fafafa"
+                android:orientation="vertical"
                 >
-
+                <fragment
+                    android:id="@+id/autocomplete_fragment"
+                    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fafafa"
+                    android:paddingLeft="10dp"
+                    android:ems="10"
+                    />
                 <EditText
                     android:id="@+id/lesseLocations"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:ems="10"
                     android:background="#fafafa"
+                    android:textColor="#fafafa"
                     android:hint="Location"
                     android:inputType="textMultiLine"
                     android:paddingLeft="10dp"/>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

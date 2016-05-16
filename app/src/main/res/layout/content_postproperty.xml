@@ -186,17 +186,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:background="#fafafa"
+                    android:orientation="vertical"
                     >
+                    <fragment
+                        android:id="@+id/autocomplete_fragment"
+                        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:paddingLeft="10dp"
+                        android:ems="10"
+                        />
 
                     <EditText
                         android:id="@+id/lesseLocations"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="#fafafa"
                         android:ems="10"
+                        android:paddingLeft="10dp"
                         android:background="#fafafa"
-                        android:hint="Location"
-                        android:inputType="textMultiLine"
-                        android:paddingLeft="10dp"/>
+                        />
+
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

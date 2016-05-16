@@ -64,7 +64,7 @@
                             .withPassword("atul  dada")
                             .withMailto(email)
                             .withSubject("Registration Successful")
-                            .withBody("Hi "+name+"! your "+phoneno+" is registered with RAR successfully.To login use email"+email+" and password "+password+".For any query you can reply to this email.")
+                            .withBody("Hi "+name+"! Your mobile no "+phoneno+" is registered with RAR successfully.To login use email: "+email+" and password:"+password+". For any query you can reply to this email.")
                             .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
                                 @Override
                                 public void onSuccess() {

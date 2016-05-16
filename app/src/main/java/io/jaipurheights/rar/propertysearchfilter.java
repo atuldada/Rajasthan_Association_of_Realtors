@@ -12,18 +12,31 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.Toast;
+/*import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+*/
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.File;
 
 
-public class propertysearchfilter extends ActionBarActivity {
+public class propertysearchfilter extends ActionBarActivity implements PlaceSelectionListener {
     private int SIGNATURE_ACTIVITY = 101;
     private String signaturePath = null;
+    String TAG="location";
+    EditText location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +44,27 @@ public class propertysearchfilter extends ActionBarActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         final Spinner proptype = (Spinner) findViewById(R.id.lessePropType);
         ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(propertysearchfilter.this,
                 R.array.propertytype, android.R.layout.simple_spinner_dropdown_item);
         proptype.setAdapter(adapter4);
         proptype.setSelection(adapter4.getCount() - 1);
         final Button filter=(Button) findViewById(R.id.lessePropertyAddButton);
+        final Spinner category = (Spinner) findViewById(R.id.lessePropType);
+        final Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
+        final Spinner city = (Spinner) findViewById(R.id.city);
+         location=(EditText) findViewById(R.id.lesseLocations);
+        final EditText budget=(EditText) findViewById(R.id.lesseBudget);
+        final EditText area=(EditText) findViewById(R.id.lesseMeasureCount);
+        final Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        autocompleteFragment.setHint("Location");
+        autocompleteFragment.setOnPlaceSelectedListener(this);
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,13 +74,7 @@ public class propertysearchfilter extends ActionBarActivity {
              //   final EditText phone = (EditText) findViewById(R.id.lessePhone);
                 // EditText email=(EditText) findViewById(R.id.email);
                 EditText add=(EditText) findViewById(R.id.lesseAddress);
-                final Spinner category = (Spinner) findViewById(R.id.lessePropType);
-                final Spinner type = (Spinner) findViewById(R.id.lessePropSubType);
-                final Spinner city = (Spinner) findViewById(R.id.city);
-                final EditText location=(EditText) findViewById(R.id.lesseLocations);
-                final EditText budget=(EditText) findViewById(R.id.lesseBudget);
-                final EditText area=(EditText) findViewById(R.id.lesseMeasureCount);
-                final Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+
                 Intent intent = new Intent();
 
                 intent.putExtra("description",category.getSelectedItem().toString());
@@ -122,7 +144,7 @@ public class propertysearchfilter extends ActionBarActivity {
                 R.array.property_measurements, android.R.layout.simple_spinner_dropdown_item);
         lesseMeasurementUnitSpinner.setAdapter(adapter1);
         lesseMeasurementUnitSpinner.setSelection(adapter1.getCount() - 1);
-        Spinner city = (Spinner) findViewById(R.id.city);
+
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(propertysearchfilter.this,
                 R.array.city, android.R.layout.simple_spinner_dropdown_item);
         city.setAdapter(adapter3);
@@ -131,7 +153,53 @@ public class propertysearchfilter extends ActionBarActivity {
         final TableLayout tl = (TableLayout) findViewById(R.id.lessePropertiesTable);
 
 
+        final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
+        final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+        final CheckBox mCheckBox3 = (CheckBox) findViewById(R.id.threep);
+        final CheckBox mCheckBox4 = (CheckBox) findViewById(R.id.fourp);
 
+        mCheckBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mCheckBox1.isChecked()) {
+                    mCheckBox3.setChecked(false);
+                    mCheckBox2.setChecked(false);
+                    mCheckBox4.setChecked(false);
+                }
+            }
+        });
+
+        mCheckBox2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCheckBox2.isChecked()) {
+                    mCheckBox1.setChecked(false);
+                    mCheckBox3.setChecked(false);
+                    mCheckBox4.setChecked(false);
+                }
+            }
+        });
+
+        mCheckBox3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCheckBox3.isChecked()) {
+                    mCheckBox1.setChecked(false);
+                    mCheckBox2.setChecked(false);
+                    mCheckBox4.setChecked(false);
+                }
+            }
+        });
+        mCheckBox4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCheckBox4.isChecked()) {
+                    mCheckBox1.setChecked(false);
+                    mCheckBox2.setChecked(false);
+                    mCheckBox3.setChecked(false);
+                }
+            }
+        });
 
 
 
@@ -161,6 +229,31 @@ public class propertysearchfilter extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 */
+public void onPlaceSelected(Place place) {
+    Log.i(TAG, "Place Selected: " + place.getName());
+
+    // Format the returned place's details and display them in the TextView.
+    location.setText((place.getAddress()).toString());
+
+    CharSequence attributions = place.getAttributions();
+       /* if (!TextUtils.isEmpty(attributions)) {
+            mPlaceAttribution.setText(" ");
+        } else {
+            mPlaceAttribution.setText("");
+        }
+        */
+}
+
+    /**
+     * Callback invoked when PlaceAutocompleteFragment encounters an error.
+     */
+
+    public void onError(Status status) {
+        Log.e(TAG, "onError: Status = " + status.toString());
+
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
