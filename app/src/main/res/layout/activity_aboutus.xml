@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#2196f3"
+    tools:context="io.jaipurheights.rar.Aboutus">
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="10">
+                <ImageView
+                    android:id="@+id/imageofproperty"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/sidelogo"
+                    />
+                <TextView
+
+                    android:id="@+id/texthead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="\n\nContact Us"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"/>
+                <TextView
+
+                    android:id="@+id/textsubhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="(Rajasthan Associatiion of Realtors)\n\n"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"/>
+                <TextView
+                    android:layout_weight="9"
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="221, Crown Square, Gandhi Path, Vaishali Nagar,\nJaipur 302 021. (Rajasthan)\nPhone : 7-8- 9-10- 11-003"
+                    android:textSize="17sp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+</RelativeLayout>

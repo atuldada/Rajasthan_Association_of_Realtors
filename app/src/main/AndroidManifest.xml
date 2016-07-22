@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.jaipurheights.rar">
 
+    <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -28,7 +29,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyArbYLphlJODJfiBeDh8y4RY-5A3kNSKwU"/>
+            android:value="AIzaSyArbYLphlJODJfiBeDh8y4RY-5A3kNSKwU" />
 
         <activity
             android:name=".MainActivity"
@@ -96,7 +97,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Contactus"
-            android:label="@string/title_activity_contactus"
+            android:label="Oops..."
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Privacypolicy"
@@ -117,31 +118,31 @@
         <activity
             android:name=".Postproperty"
             android:label="Post Property"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Propertyshown"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".sell"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".buy"
             android:label="@string/title_activity_propertyshown"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".propertysearchfilter"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="FILTER"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name="com.ibm.mobilefirstplatform.clientsdk.android.push.api.MFPPushIntentService" />
 
@@ -163,6 +164,18 @@
         <activity
             android:name=".Displaysearch"
             android:label="Property"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Postedproperty"
+            android:label="Posted Successfully"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Aboutus"
+            android:label="Contact"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Termsandconditions"
+            android:label="Terms and Conditions"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

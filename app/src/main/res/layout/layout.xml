@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="io.jaipurheights.rar.TndC"
-    tools:showIn="@layout/activity_tnd_c"
+
     android:background="#2196f3">
     <ScrollView
         android:layout_width="match_parent"
@@ -43,14 +43,45 @@ The Lessor shall pay to the broker commission at the time of execution of the ag
 
                 android:textColor="@android:color/white"
                 android:textSize="16sp"/>
-            <CheckBox
-                android:id="@+id/onep"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1 month rental commission for a Commercial premises.."
+                android:orientation="horizontal"
+                >
+            <CheckBox
+                android:id="@+id/onep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 month"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 />
+                <CheckBox
+                    android:id="@+id/threep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 month"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    />
+                <CheckBox
+                    android:id="@+id/fourp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6 month"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_weight="9"
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="rental commission for a Commercial premises..\n"
+
+                android:textColor="@android:color/white"
+                android:textSize="16sp"/>
 
             <CheckBox
                 android:id="@+id/twop"

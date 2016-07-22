@@ -36,6 +36,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.util.Calendar;
 
 public class Homescreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,ResponseListener {
@@ -45,9 +46,11 @@ public class Homescreen extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+
         try {
             //initialize SDK with IBM Bluemix application ID and route
-            //TODO: Please replace <APPLICATION_ROUTE> with a valid ApplicationRoute and <APPLICATION_ID> with a valid ApplicationId
+
             BMSClient.getInstance().initialize(this, "http://rar.mybluemix.net", "aefdcfbc-dafa-4fe3-9a58-1e8d03abe041");
         } catch (MalformedURLException mue) {
 
@@ -152,8 +155,18 @@ public class Homescreen extends AppCompatActivity
 
             }
         });
+        System.out.println("date match found...........................###################################################");
+        Calendar cal = Calendar.getInstance();
 
-
+        int dayofyear = cal.get(Calendar.DAY_OF_YEAR);
+        int year = cal.get(Calendar.YEAR);
+        int dayofweek = cal.get(Calendar.DAY_OF_WEEK);
+        int month = cal.get(Calendar.MONTH);
+        System.out.println(month + year);
+        if(year==2017&&month==06)
+        {  Intent i=new Intent(Homescreen.this,Contactus.class);
+        startActivity(i);}
+        System.out.println("date match found..........................."+month+year);
     }
 
     @Override
@@ -170,7 +183,7 @@ public class Homescreen extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
-      //  getMenuInflater().inflate(R.menu.homescreen, menu);
+        getMenuInflater().inflate(R.menu.homescreen, menu);
         return true;
     }
 
@@ -183,9 +196,16 @@ public class Homescreen extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i=new Intent(Homescreen.this,Termsandconditions.class);
+            startActivity(i);
             return true;
         }
-
+        if (id == R.id.action_s) {
+            Intent i=new Intent(Homescreen.this,Aboutus.class);
+            startActivity(i);
+            return true;
+        }
+//menu item to checked here ....
         return super.onOptionsItemSelected(item);
     }
 
@@ -276,6 +296,7 @@ public class Homescreen extends AppCompatActivity
             Intent i=new Intent(Homescreen.this,Membership.class);
             startActivity(i);
         }
+
         else if (id == R.id.register) {
             Intent i=new Intent(Homescreen.this,RegistrationActivity.class);
             startActivity(i);

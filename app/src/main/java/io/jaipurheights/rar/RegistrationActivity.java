@@ -46,22 +46,24 @@
                 public void onClick(View v) {
                     name = registername.getText().toString();
                     email = registeremail.getText().toString();
-                    password = registerpassword.getText().toString();
+              //      password = registerpassword.getText().toString();
+                 //// TODO: 22/7/16 encryption access denied
+                    password = "(Ask Admin to get password)";
                     phoneno = registerphoneno.getText().toString();
                     SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("mypref",0);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user_name", name);
                     editor.putString("user_mob", phoneno);
-                    editor.putString("user_pan", password);
+                    editor.putString("user_pan", "*$##$*");
                     editor.putString("user_email", email);
                     //editor.putString("code", code);
                     editor.commit();
                     Toast.makeText(RegistrationActivity.this,
-                            "Registration Successful",
+                            "Registration Successful.Please contact Admin to get authorized password",
                             Toast.LENGTH_LONG).show();
                     BackgroundMail.newBuilder(RegistrationActivity.this)
-                            .withUsername("developeratuldada@gmail.com")
-                            .withPassword("atul  dada")
+                            .withUsername("rar.customercare@gmail.com")
+                            .withPassword("rajasthanassociation")
                             .withMailto(email)
                             .withSubject("Registration Successful")
                             .withBody("Hi "+name+"! Your mobile no "+phoneno+" is registered with RAR successfully.To login use email: "+email+" and password:"+password+". For any query you can reply to this email.")

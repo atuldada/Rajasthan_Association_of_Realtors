@@ -36,6 +36,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
     private String signaturePath = null;
     String TAG="location";
     EditText location;
+    String Formtype;
 
 
     @Override
@@ -44,6 +45,9 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
         setContentView(R.layout.activity_search);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
         final Spinner proptype = (Spinner) findViewById(R.id.lessePropType);
         ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(propertysearchfilter.this,
@@ -58,6 +62,11 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
         final EditText budget=(EditText) findViewById(R.id.lesseBudget);
         final EditText area=(EditText) findViewById(R.id.lesseMeasureCount);
         final Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
+        final Spinner name = (Spinner) findViewById(R.id.name);
+        ArrayAdapter<CharSequence> adapterc2 = ArrayAdapter.createFromResource(propertysearchfilter.this,
+                R.array.name, android.R.layout.simple_spinner_dropdown_item);
+        name.setAdapter(adapterc2);
+        name.setSelection(adapterc2.getCount() - 1);
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
@@ -70,7 +79,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
             public void onClick(View view) {
 
            //     final EditText description = (EditText) findViewById(R.id.c);
-                final EditText name = (EditText) findViewById(R.id.company);
+             //   final EditText name = (EditText) findViewById(R.id.company);
              //   final EditText phone = (EditText) findViewById(R.id.lessePhone);
                 // EditText email=(EditText) findViewById(R.id.email);
                 EditText add=(EditText) findViewById(R.id.lesseAddress);
@@ -83,8 +92,8 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                 intent.putExtra("city",city.getSelectedItem().toString());
                 intent.putExtra("price",budget.getText().toString());
                 intent.putExtra("Area",area.getText().toString()+unit.getSelectedItem().toString());
-
-                intent.putExtra("name",name.getText().toString());
+                intent.putExtra("Formtype",Formtype);
+                intent.putExtra("name", name.getSelectedItem().toString());
                 setResult(RESULT_OK, intent);
               /*  Toast.makeText(getApplicationContext(),
                             "Comming Soon...",
@@ -165,6 +174,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                     mCheckBox3.setChecked(false);
                     mCheckBox2.setChecked(false);
                     mCheckBox4.setChecked(false);
+                    Formtype="For Sale";
                 }
             }
         });
@@ -176,6 +186,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                     mCheckBox1.setChecked(false);
                     mCheckBox3.setChecked(false);
                     mCheckBox4.setChecked(false);
+                    Formtype="For Rent-Out";
                 }
             }
         });
@@ -187,6 +198,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                     mCheckBox1.setChecked(false);
                     mCheckBox2.setChecked(false);
                     mCheckBox4.setChecked(false);
+                    Formtype="To Buy";
                 }
             }
         });
@@ -197,6 +209,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                     mCheckBox1.setChecked(false);
                     mCheckBox2.setChecked(false);
                     mCheckBox3.setChecked(false);
+                    Formtype="To Rent-in";
                 }
             }
         });
@@ -267,8 +280,8 @@ public void onPlaceSelected(Place place) {
                     ImageView signatureView = (ImageView) findViewById(R.id.lesseSignatureView);
                     signatureView.setImageURI(Uri.fromFile(imgFile));
                 }
-                //do something
-            } // TODO: implement else
+
+            }
         }
     }
 

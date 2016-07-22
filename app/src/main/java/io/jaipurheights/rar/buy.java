@@ -176,6 +176,7 @@ public class buy extends ActionBarActivity {
                         text += "\n" + "Budget: " + budget.getText().toString();
                         text += "\n" + "Area: " + area.getText().toString();
                         text += "\n" + "Unit: " + unit.getSelectedItem().toString();
+                        text += "\n" + getIntent().getStringExtra("com");
                         emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, text);
                         emailIntent.putExtra(Intent.EXTRA_TEXT, text);
                         startActivity(Intent.createChooser(emailIntent, "Send email..."));

@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="io.jaipurheights.rar.Propertyshown"
-    tools:showIn="@layout/activity_propertyshown">
+    tools:showIn="@layout/activity_propertyshown"
+    android:background="#eeeeee">
 
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -230,12 +231,187 @@
                     android:background="#fafafa"
                     >
                     <EditText
-                        android:id="@+id/lesseAddress5"
+                        android:id="@+id/lesseAddress6"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#fafafa"
                         android:ems="10"
                         android:hint="4.Premises Shown"
+                        android:paddingLeft="10dp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+
+                    <EditText
+                        android:id="@+id/lesseBudget6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:ems="10"
+                        android:hint="Rate"
+                        android:background="#fafafa"
+                        android:inputType="number" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+                    <EditText
+                        android:id="@+id/lesseAddress7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:ems="10"
+                        android:hint="5.Premises Shown"
+                        android:paddingLeft="10dp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+
+                    <EditText
+                        android:id="@+id/lesseBudget7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:ems="10"
+                        android:hint="Rate"
+                        android:background="#fafafa"
+                        android:inputType="number" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+                    <EditText
+                        android:id="@+id/lesseAddress8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:ems="10"
+                        android:hint="6.Premises Shown"
+                        android:paddingLeft="10dp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+
+                    <EditText
+                        android:id="@+id/lesseBudget8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:ems="10"
+                        android:hint="Rate"
+                        android:background="#fafafa"
+                        android:inputType="number" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+                    <EditText
+                        android:id="@+id/lesseAddress9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:ems="10"
+                        android:hint="7.Premises Shown"
+                        android:paddingLeft="10dp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+
+                    <EditText
+                        android:id="@+id/lesseBudget9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:ems="10"
+                        android:hint="Rate"
+                        android:background="#fafafa"
+                        android:inputType="number" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#fafafa"
+                    >
+                    <EditText
+                        android:id="@+id/lesseAddress5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fafafa"
+                        android:ems="10"
+                        android:hint="8.Premises Shown"
                         android:paddingLeft="10dp"
                         android:inputType="textMultiLine" />
                 </LinearLayout>
@@ -267,6 +443,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -76,10 +76,17 @@
                     android:layout_height="38dp"
                     android:background="#fafafa"
                     >
+                    <Spinner
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+
+                        />
 
                     <EditText
                         android:id="@+id/lesseName"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:hint="Name"

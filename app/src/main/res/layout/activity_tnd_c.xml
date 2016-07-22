@@ -38,9 +38,32 @@
         android:text="
 The Lessee authorizes the RAR member hereinafter called “the broker” to Search premises for a consideration mentioned in the form.\n\n
 The Lessee agrees to pay the broker commission of :\n\n
-1 month rental commission for a Commercial premises.\n\n
-15 days rental commission for a Residential premises.\n\n
-The Lessee shall pay to the broker commission at the time of execution of the agreement."
+"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+    <CheckBox
+        android:id="@+id/onep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1 month rental commission for a Commercial premises..\n"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        />
+
+    <CheckBox
+        android:id="@+id/twop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="15 days rental commission for a Residential premises"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        />
+    <TextView
+        android:layout_weight="9"
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="The Lessee shall pay to the broker commission at the time of execution of the agreement."
         android:textColor="@android:color/white"
         android:textSize="16sp"/>
 <Button

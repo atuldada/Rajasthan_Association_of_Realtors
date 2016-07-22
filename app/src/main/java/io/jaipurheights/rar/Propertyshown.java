@@ -74,6 +74,18 @@ public class Propertyshown extends ActionBarActivity {
                 EditText budget5=(EditText) findViewById(R.id.lesseBudget5);
                 EditText add5=(EditText) findViewById(R.id.lesseAddress5);
 
+                EditText budget6=(EditText) findViewById(R.id.lesseBudget6);
+                EditText add6=(EditText) findViewById(R.id.lesseAddress6);
+
+                EditText budget7=(EditText) findViewById(R.id.lesseBudget7);
+                EditText add7=(EditText) findViewById(R.id.lesseAddress7);
+
+                EditText budget8=(EditText) findViewById(R.id.lesseBudget8);
+                EditText add8=(EditText) findViewById(R.id.lesseAddress8);
+
+                EditText budget9=(EditText) findViewById(R.id.lesseBudget9);
+                EditText add9=(EditText) findViewById(R.id.lesseAddress9);
+
                 String mob=name.getText().toString();
                 String nam=name.getText().toString();
 
@@ -118,6 +130,14 @@ public class Propertyshown extends ActionBarActivity {
                         a=add4.getText().toString() + budget4.getText().toString()+" ";
                         text += "\n\n" + a;
                          a=add5.getText().toString() + budget5.getText().toString()+" ";
+                        text += "\n\n" + a;
+                        a=add6.getText().toString() + budget6.getText().toString()+" ";
+                        text += "\n\n" + a;
+                        a=add7.getText().toString() + budget7.getText().toString()+" ";
+                        text += "\n\n" + a;
+                        a=add8.getText().toString() + budget8.getText().toString()+" ";
+                        text += "\n\n" + a;
+                        a=add9.getText().toString() + budget9.getText().toString()+" ";
                         text += "\n\n" + a;
 
                         emailIntent.putExtra(Intent.EXTRA_HTML_TEXT, text);

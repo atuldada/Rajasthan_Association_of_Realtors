@@ -26,4 +26,5 @@ public class rarinfo extends AppCompatActivity {
         });
     }
 
+
 }

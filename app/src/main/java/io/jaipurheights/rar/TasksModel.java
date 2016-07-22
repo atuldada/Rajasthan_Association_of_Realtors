@@ -65,6 +65,7 @@ class TasksModel {
     private final Context mContext;
     private final Handler mHandler;
     private Postproperty mListener;
+    private Requirement Listener;
 
 
     public TasksModel(Context context) {
@@ -111,6 +112,10 @@ class TasksModel {
     public void setReplicationListener(Postproperty listener) {
         this.mListener = listener;
     }
+    public void setReplicationListener(Requirement listener) {
+        this.Listener = listener;
+    }
+
 
     //
     // DOCUMENT CRUD
@@ -124,16 +129,26 @@ class TasksModel {
     public Task createDocument(Task task,String path) {
         DocumentRevision rev = new DocumentRevision();
         rev.setBody(DocumentBodyFactory.create(task.asMap()));
-
-        File file1 =new File(path);
-
-        UnsavedFileAttachment att1 = new UnsavedFileAttachment(file1,"image/jpeg");
-        rev.getAttachments().put(att1.name, att1);
         try {
+            File file1 = new File(path);
+
+            UnsavedFileAttachment att1 = new UnsavedFileAttachment(file1, "image/jpeg");
+            rev.getAttachments().put(att1.name, att1);
+            try {
+                DocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
+                return Task.fromRevision(created);
+            } catch (DocumentException de) {
+                return null;
+            }
+        }
+        catch (NullPointerException e)
+        {try {
             DocumentRevision created = this.mDatastore.createDocumentFromRevision(rev);
             return Task.fromRevision(created);
         } catch (DocumentException de) {
             return null;
+        }
+
         }
     }
 
@@ -295,6 +310,9 @@ class TasksModel {
                 if (mListener != null) {
                     mListener.replicationComplete();
                 }
+                if (Listener != null) {
+                    Listener.replicationComplete();
+                }
 
             }
         });
@@ -313,6 +331,9 @@ class TasksModel {
             public void run() {
                 if (mListener != null) {
                     mListener.replicationError();
+                }
+                if (Listener != null) {
+                    Listener.replicationError();
                 }
 
             }

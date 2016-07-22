@@ -12,4 +12,15 @@
     tools:context="io.jaipurheights.rar.Contactus"
     tools:showIn="@layout/activity_contactus">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Please update the latest version of the app"
+        android:id="@+id/textView2"
+
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"/>
 </RelativeLayout>

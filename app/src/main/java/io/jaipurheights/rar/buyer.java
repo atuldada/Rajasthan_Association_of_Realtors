@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 public class buyer extends AppCompatActivity {
-
+    String com;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,8 @@ public class buyer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(buyer.this, buy.class);
+                i.putExtra("com", com);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 finish();
             }
@@ -32,6 +34,7 @@ public class buyer extends AppCompatActivity {
             public void onClick(View view) {
                 if(mCheckBox2.isChecked())
                     mCheckBox1.setChecked(false);
+                com="2% commission";
 
             }
         });
@@ -41,6 +44,7 @@ public class buyer extends AppCompatActivity {
             public void onClick(View view) {
                 if(mCheckBox1.isChecked())
                     mCheckBox2.setChecked(false);
+                com="1% commission";
 
             }
         });

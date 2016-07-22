@@ -42,6 +42,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,7 +164,7 @@ class TasksModelsearch {
     /**
      *<p>Returns all {@code Task} documents in the datastore.</p>
      */
-    public List<Task> searchTasks(String description,String subdescription,String location,String city,String price,String Area) {
+    public List<Task> searchTasks(String description,String subdescription,String location,String city,String name,String Area,String Formtype) {
         int nDocs = this.mDatastore.getDocumentCount();
         List<DocumentRevision> all = this.mDatastore.getAllDocuments(0, nDocs, true);
         List<Task> tasks = new ArrayList<Task>();
@@ -183,23 +184,61 @@ class TasksModelsearch {
         indexFields.add("Area");
         indexFields.add("Information");
         indexFields.add("imagename");
+        indexFields.add("Formtype");
 // Create the index
         im.ensureIndexed(indexFields,"description");
         Map<String, Object> query = new HashMap<String, Object>();
+  /*      Map<String, Object> gt30 = new HashMap<String, Object>();
+        Map<String, Object> lt30 = new HashMap<String, Object>();
+        Map<String, Object> area1 = new HashMap<String, Object>();
+        Map<String, Object> area2 = new HashMap<String, Object>();
+        if(price!=null && Area!=null) {
+            gt30.put("$lt", Integer.parseInt(price));
+            lt30.put("$gt",  (100));
+            area1.put("price", gt30);
+            area2.put("price", lt30);
+            query.put("$and", Arrays.<Object>asList(area1, area2));
+        }
+
+  */
+     /*   if(Area!=null)
+        lt30.put("$gt",  Integer.parseInt(Area));
+        */
+       // query.put("$and", Arrays.<Object>asList(gt30, lt30));
+        if(description!=null)
+            query.put("name", name);
         if(description!=null)
         query.put("description", description);
         if(subdescription!=null)
             query.put("subdescription", subdescription);
+        if(Formtype!=null)
+            query.put("Formtype", Formtype);
 
     /*    if(location!=null)
             query.put("location", location);*/
         if(city!=null)
             query.put("city", city);
+
+
+
+       if(location!=null&&location!=""&&!location.isEmpty()) {
+           System.out.println("bug::::::::::::::::"+location+"::::::::::");
+           query.put("location", location);
+       }
     /*    if(price!=null)
             query.put("price",price);
         if(Area!=null)
             query.put("Area",Area);
-*/
+
+            Map<String, Object> gt30 = new HashMap<String, Object>();
+ gt30.put("$gt", 30);
+ ageClause.put("age", gt30);
+ Map<String, Object> eqMike = new HashMap<String, Object>();
+ eqMike.put("$eq", "mike");
+ nameClause.put("name", eqMike);
+ andClause.put("$and", Arrays.<Object>asList(ageClause, nameClause));
+ query.put("$or", Arrays.<Object>asList(petClause, andClause));
+ */
         QueryResult result = im.find(query);
 
 for(DocumentRevision revi:result)

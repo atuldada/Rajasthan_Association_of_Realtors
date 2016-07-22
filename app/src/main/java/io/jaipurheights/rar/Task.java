@@ -37,7 +37,7 @@ public class Task {
 
     private Task() {}
 
-    public Task(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename) {
+    public Task(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename,String Formtype) {
         this.setDescription(desc);
         this.setName(name);
         this.setPhone(phone);
@@ -50,6 +50,7 @@ public class Task {
         this.setCompleted(false);
         this.setType(DOC_TYPE);
         this.setImagename(imagename);
+        this.setFormtype(Formtype);
     }
 
     // this is the revision in the database representing this task
@@ -87,9 +88,10 @@ public class Task {
     private String info =" ";
     private String imagename;
     private String id="image";
+    private String Formtype =" ";
 
     public String getSubdescription(){
-    return this.subdescription;
+        return this.subdescription;
     }
     public String getDescription() {
         return this.description;
@@ -123,6 +125,12 @@ public class Task {
     }
     public String getId(){
         return this.id;
+    }
+    public String getFormtye(){
+        return this.Formtype;
+    }
+    public void setFormtype(String desc) {
+        this.Formtype = desc;
     }
     public void setLocation(String desc) {
         this.location = desc;
@@ -163,7 +171,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "{ desc: " + getDescription() + ", completed: " + isCompleted()  + ", name: " + getNamee() + ", phone: " + getPhone() + ", Address: " + getAddress() + ", subdescription: " + getSubdescription() + ", location: " + getLocation()+ ", city: " + getCity()  + ", price: " + getPrice() + ", Area: " + getArea() + ", Information: " + getInfo()+ ", imagename: " + getImagename()  + "}";
+        return "{ desc: " + getDescription() + ", completed: " + isCompleted()  + ", name: " + getNamee() + ", phone: " + getPhone() + ", Address: " + getAddress() + ", subdescription: " + getSubdescription() + ", location: " + getLocation()+ ", city: " + getCity()  + ", price: " + getPrice() + ", Area: " + getArea() + ", Information: " + getInfo()+ ", imagename: " + getImagename()  + ", Formtype: " + getFormtye()+ "}";
     }
 
     public static Task fromRevision(DocumentRevision rev) {
@@ -176,7 +184,7 @@ public class Task {
             t.setType((String) map.get("type"));
             t.setCompleted((Boolean) map.get("completed"));
             t.setDescription((String) map.get("description"));
-           t.setName((String) map.get("name"));
+            t.setName((String) map.get("name"));
             t.setPhone((String) map.get("phone"));
             t.setAddress((String) map.get("address"));
             t.setSubdescription((String) map.get("subdescription"));
@@ -186,8 +194,9 @@ public class Task {
             t.setInfo((String) map.get("info"));
             t.setCity((String) map.get("city"));
             t.setImagename((String) map.get("imagename"));
-           t.setId((rev.getId()));
-            System.out.println((rev.getId())+"testttttttttttttttt");
+            t.setId((rev.getId()));
+            t.setFormtype((String) map.get("Formtype"));
+            System.out.println((rev.getId()) + "testttttttttttttttt");
             return t;
         }
         return null;
@@ -209,6 +218,7 @@ public class Task {
         map.put("area", area);
         map.put("info", info);
         map.put("imagename",imagename);
+        map.put("Formtype",Formtype);
         map.put("id",id);
         return map;
     }

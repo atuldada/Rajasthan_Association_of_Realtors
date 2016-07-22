@@ -1,14 +1,18 @@
 package io.jaipurheights.rar;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,23 +30,67 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
+import java.net.URISyntaxException;
+import java.util.List;
 
 
-public class Requirement extends ActionBarActivity implements PlaceSelectionListener {
+public class Requirement extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener , PlaceSelectionListener {
+
+    String path=null;
+    ImageView img,img1;
+    int column_index;
+    Intent intent=null;
+    EditText location;
+    // Declare our Views, so we can access them later
+    String logo,imagePath,Logo;
+    Cursor cursor;
+    //YOU CAN EDIT THIS TO WHATEVER YOU WANT
+    private static final int SELECT_PICTURE = 1;
+    String selectedImagePath;
+    //ADDED
+    String filemanagerstring;
     private int SIGNATURE_ACTIVITY = 101;
     private String signaturePath = null;
-    EditText location;
+    static final String LOG_TAG = "TodoActivity";
+
+    private static final int DIALOG_NEW_TASK = 1;
+    private static final int DIALOG_PROGRESS = 2;
+    ProgressBar viewProgressBar;
+    static final String SETTINGS_CLOUDANT_USER = "pref_key_username";
+    static final String SETTINGS_CLOUDANT_DB = "pref_key_dbname";
+    static final String SETTINGS_CLOUDANT_API_KEY = "pref_key_api_key";
+    static final String SETTINGS_CLOUDANT_API_SECRET = "pref_key_api_password";
     String TAG="location";
+    String Formtype;
+    // Main data model object
+    private static TasksModel sTasks;
+    private TaskAdapter mTaskAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requirement);
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // Register to listen to the setting changes because replicators
+        // uses information managed by shared preference.
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
+
+
+
+        // Protect creation of static variable.
+        if (sTasks == null) {
+            // Model needs to stay in existence for lifetime of app.
+            this.sTasks = new TasksModel(this.getApplicationContext());
+        }
+
+        // Register this activity as the listener to replication updates
+        // while its active.
+        this.sTasks.setReplicationListener(this);
+
+        // Load the tasks from the model
+        this.reloadTasksFromModel();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
@@ -51,6 +100,9 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
         // occurred.
         autocompleteFragment.setHint("Location");
         autocompleteFragment.setOnPlaceSelectedListener(this);
+        // Load default settings when we're first created.
+
+
         final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
         final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
 
@@ -59,7 +111,8 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
             @Override
             public void onClick(View view) {
                 if(mCheckBox2.isChecked())
-                    mCheckBox1.setChecked(false);
+                {      mCheckBox1.setChecked(false);
+                    Formtype="To Rent-in";}
 
             }
         });
@@ -68,8 +121,8 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
             @Override
             public void onClick(View view) {
                 if (mCheckBox1.isChecked())
-                    mCheckBox2.setChecked(false);
-
+                {  mCheckBox2.setChecked(false);
+                    Formtype="To Buy";}
             }
         });
 
@@ -137,21 +190,26 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
             }
         });
 
-
+        Spinner name2 = (Spinner) findViewById(R.id.name);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(Requirement.this,
+                R.array.name, android.R.layout.simple_spinner_dropdown_item);
+        name2.setAdapter(adapter2);
+        name2.setSelection(adapter2.getCount() - 1);
         Spinner lesseMeasurementUnitSpinner = (Spinner) findViewById(R.id.lesseMeasurementUnit);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(Requirement.this,
                 R.array.property_measurements, android.R.layout.simple_spinner_dropdown_item);
         lesseMeasurementUnitSpinner.setAdapter(adapter1);
         lesseMeasurementUnitSpinner.setSelection(adapter1.getCount() - 1);
-      final   Spinner city = (Spinner) findViewById(R.id.city);
+        final   Spinner city = (Spinner) findViewById(R.id.city);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(Requirement.this,
                 R.array.city, android.R.layout.simple_spinner_dropdown_item);
         city.setAdapter(adapter3);
         city.setSelection(adapter3.getCount() - 1);
 
 
-     final    Button sendButton = (Button) findViewById(R.id.lesseSubmit);
-        final    EditText name = (EditText) findViewById(R.id.lesseName);
+
+        final    Button sendButton = (Button) findViewById(R.id.lesseSubmit);
+      //  final    EditText name = (EditText) findViewById(R.id.lesseName);
         final    EditText phone = (EditText) findViewById(R.id.lessePhone);
         //    EditText email = (EditText) findViewById(R.id.email);
         //    EditText add = (EditText) findViewById(R.id.lesseAddress);
@@ -162,14 +220,64 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
         final    EditText budget = (EditText) findViewById(R.id.lesseBudget);
         final    EditText area = (EditText) findViewById(R.id.lesseMeasureCount);
         final    Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
-
+        final    Spinner name3 = (Spinner) findViewById(R.id.name);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                try {
+                    if (!(path.isEmpty()) && path != null) {
+                        System.out.println("::::::ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooocheck report");
 
+                        File f = new File(path);
+                        String filename = f.getName();
+                        createNewTask(category.getSelectedItem().toString(), name3.getSelectedItem().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), filename,Formtype);
 
+                        sTasks.startPushReplication();
+                        Toast.makeText(getApplicationContext(),
+                                "uploading please wait...",
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent( getApplicationContext(),Postedproperty.class);
+                        intent.putExtra("phone",phone.getText().toString());
+                        intent.putExtra("description",category.getSelectedItem().toString());
+                        intent.putExtra("subdescription", type.getSelectedItem().toString());
+                        intent.putExtra("name", name3.getSelectedItem().toString());
+                        intent.putExtra("price",budget.getText().toString());
+                        intent.putExtra("area", area.getText().toString() + unit.getSelectedItem().toString());
+                        intent.putExtra("city", city.getSelectedItem().toString());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        v.getContext().startActivity(intent);
+                        finish();
 
+                    } else if (path.isEmpty()) {
+
+                    }
+
+                }
+                catch (NullPointerException e)
+                {
+                    System.out.println("::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.check report");
+                    createNewTask(category.getSelectedItem().toString(), name3.getSelectedItem().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), "",Formtype);
+
+                    sTasks.startPushReplication();
+                    Toast.makeText(getApplicationContext(),
+                            "uploading please wait...",
+                            Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent( getApplicationContext(),Postedproperty.class);
+                    intent.putExtra("phone",phone.getText().toString());
+                    intent.putExtra("description",category.getSelectedItem().toString());
+                    intent.putExtra("subdescription", type.getSelectedItem().toString());
+                    intent.putExtra("name", name3.getSelectedItem().toString());
+                    intent.putExtra("price", budget.getText().toString());
+                    intent.putExtra("area", area.getText().toString() + unit.getSelectedItem().toString());
+                    intent.putExtra("city", city.getSelectedItem().toString());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    v.getContext().startActivity(intent);
+                    finish();
+
+                }
+
+/*
                 String mob = name.getText().toString();
                 String nam = name.getText().toString();
 
@@ -181,28 +289,7 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
                     String mail = "atuldada.dada@gmail.com";
                     String to[] = {mail};
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
-                    // the attachment
-                //    ArrayList<Uri> uris = new ArrayList<Uri>();
-                //    uris.add(Uri.fromFile(imgFile));
 
-                    {
-                     /*   InputStream is = getAssets().open("lessor.txt");
-                        byte[] buffer = new byte[is.available()];
-                        is.read(buffer);
-                        String xpath = Environment.getExternalStorageDirectory().toString();
-                        File targetFile = new File(xpath + "/terms_and_conditions.txt");
-                        OutputStream os = new FileOutputStream(targetFile);
-                        os.write(buffer);
-                        is.close();
-                        //flush OutputStream to write any buffered data to file
-                        os.flush();
-                        os.close();
-
-                        targetFile = new File(xpath + "/terms_and_conditions.txt"); //re read
-                        uris.add(Uri.fromFile(targetFile));
-                        */
-                     //   emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
-                        // the mail subject
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RAR Requirement form");
 
                         String text = "Name: " + name.getText().toString();
@@ -225,13 +312,10 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
 
                     }
                 }
-              /*  else if(mob.length()>9)
-                {
-                    Toast.makeText(form.this, "Invalid Mobile No.", Toast.LENGTH_SHORT);
-                }*/
+
                 else {
                     Toast.makeText(Requirement.this, "Incomplete Form", Toast.LENGTH_SHORT);
-                }
+                }*/
 
             }
         });
@@ -241,47 +325,143 @@ public class Requirement extends ActionBarActivity implements PlaceSelectionList
 
     }
 
-  /*  @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lesse, menu);
-        return true;
-    }
+    /*  @Override
+      public boolean onCreateOptionsMenu(Menu menu) {
+          // Inflate the menu; this adds items to the action bar if it is present.
+          getMenuInflater().inflate(R.menu.menu_lesse, menu);
+          return true;
+      }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+      @Override
+      public boolean onOptionsItemSelected(MenuItem item) {
+          // Handle action bar item clicks here. The action bar will
+          // automatically handle clicks on the Home/Up button, so long
+          // as you specify a parent activity in AndroidManifest.xml.
+          int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+          //noinspection SimplifiableIfStatement
+          if (id == R.id.action_settings) {
+              return true;
+          }
 
-        return super.onOptionsItemSelected(item);
-    }
-*/
-  public void onPlaceSelected(Place place) {
-      Log.i(TAG, "Place Selected: " + place.getName());
+          return super.onOptionsItemSelected(item);
+      }
+  */
+    public void onPlaceSelected(Place place) {
+        Log.i(TAG, "Place Selected: " + place.getName());
 
-      // Format the returned place's details and display them in the TextView.
-      location.setText((place.getAddress()).toString());
+        // Format the returned place's details and display them in the TextView.
+        location.setText((place.getAddress()).toString());
 
-      CharSequence attributions = place.getAttributions();
+        CharSequence attributions = place.getAttributions();
        /* if (!TextUtils.isEmpty(attributions)) {
             mPlaceAttribution.setText(" ");
         } else {
             mPlaceAttribution.setText("");
         }
         */
-  }
+    }
 
     /**
      * Callback invoked when PlaceAutocompleteFragment encounters an error.
      */
+    private void reloadTasksFromModel() {
+        List<Task> tasks = this.sTasks.allTasks();
+        this.mTaskAdapter = new TaskAdapter(this, tasks);
 
+    }
+    private void createNewTask(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename,String Formtype) {
+        Task t = new Task(desc,name,phone,subdescription,city,location,price,area,imagename,Formtype);
+        sTasks.createDocument(t, path);
+        reloadTasksFromModel();
+    }
+
+
+    void replicationComplete() {
+        //   reloadTasksFromModel();
+
+        Toast.makeText(getApplicationContext(),
+                "Posted Successfully",
+                Toast.LENGTH_LONG).show();
+
+        // dismissDialog(DIALOG_PROGRESS);
+
+    }
+
+
+    /**
+     * Called by TasksModel when it receives a replication error callback.
+     * TasksModel takes care of calling this on the main thread.
+     */
+    void replicationError() {
+        Log.i(LOG_TAG, "error()");
+        //   reloadTasksFromModel();
+
+        Toast.makeText(getApplicationContext(),
+                "Unable To Connect To Internet",
+                Toast.LENGTH_LONG).show();
+        //  dismissDialog(DIALOG_PROGRESS);
+
+    }
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+        switch (id) {
+            case DIALOG_NEW_TASK:
+
+            case DIALOG_PROGRESS:
+                return createProgressDialog();
+            default:
+                throw new RuntimeException("No dialog defined for id: " + id);
+        }
+    }
+
+    public Dialog createProgressDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View v = this.getLayoutInflater().inflate(R.layout.dialog_loading, null);
+
+        DialogInterface.OnClickListener negativeClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                stopReplication();
+            }
+        };
+
+        DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.replication_running, Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        builder.setView(v).setNegativeButton("Stop", negativeClick).setOnKeyListener(keyListener);
+
+        return builder.create();
+    }
+    void stopReplication() {
+        sTasks.stopAllReplications();
+        this.dismissDialog(DIALOG_PROGRESS);
+        mTaskAdapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                          String key) {
+        Log.d(LOG_TAG, "onSharedPreferenceChanged()");
+        reloadReplicationSettings();
+    }
+
+    private void reloadReplicationSettings() {
+        try {
+            this.sTasks.reloadReplicationSettings();
+        } catch (URISyntaxException e) {
+            Log.e(LOG_TAG, "Unable to construct remote URI from configuration", e);
+
+        }
+    }
     public void onError(Status status) {
         Log.e(TAG, "onError: Status = " + status.toString());
 
