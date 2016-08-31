@@ -13,6 +13,7 @@ public class Postedproperty extends AppCompatActivity {
     String phone,url;
     ImageView image;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postedproperty);
@@ -32,17 +33,11 @@ public class Postedproperty extends AppCompatActivity {
 
         description.setText(getIntent().getStringExtra("description"));
         subdescription.setText(getIntent().getStringExtra("subdescription"));
-        name.setText("IDENTITY: "+getIntent().getStringExtra("name"));
+        name.setText("Name: "+getIntent().getStringExtra("name"));
         price.setText("PRICE: "+getIntent().getStringExtra("price"));
         area.setText("AREA: "+getIntent().getStringExtra("area"));
-        city.setText("CITY: "+getIntent().getStringExtra("city"));
+        city.setText("LOCATION: "+getIntent().getStringExtra("city"));
         phoneno.setText("PHONE: "+phone);
-
-
-
-
-
-
 
     }
 

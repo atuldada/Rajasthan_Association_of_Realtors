@@ -38,8 +38,7 @@
                 android:text="The Lessor authorizes the RAR member hereinafter called “the broker” to lease his premises for a consideration mentioned in the form.\n
 \n\n
 The Lessor agrees to pay the broker commission of :
-\n\n
-The Lessor shall pay to the broker commission at the time of execution of the agreement.\n\n"
+\n\n"
 
                 android:textColor="@android:color/white"
                 android:textSize="16sp"/>

@@ -185,6 +185,8 @@ class TasksModelsearch {
         indexFields.add("Information");
         indexFields.add("imagename");
         indexFields.add("Formtype");
+        indexFields.add("identity");
+
 // Create the index
         im.ensureIndexed(indexFields,"description");
         Map<String, Object> query = new HashMap<String, Object>();
@@ -205,8 +207,8 @@ class TasksModelsearch {
         lt30.put("$gt",  Integer.parseInt(Area));
         */
        // query.put("$and", Arrays.<Object>asList(gt30, lt30));
-        if(description!=null)
-            query.put("name", name);
+        if(name!=null)
+           query.put("identity", name);
         if(description!=null)
         query.put("description", description);
         if(subdescription!=null)

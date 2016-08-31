@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 public class TndC extends AppCompatActivity {
 String com;
@@ -15,18 +16,29 @@ String com;
         setContentView(R.layout.activity_tnd_c);
         Button accept;
         accept=(Button)findViewById(R.id.accept);
+        final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
+        final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(TndC.this, LesseActivity.class);
-                i.putExtra("com", com);
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                finish();
+                if(!mCheckBox1.isChecked()&&!mCheckBox2.isChecked())
+                {  Toast.makeText(TndC.this,
+                        "Please select a option",
+                        Toast.LENGTH_LONG).show();}
+
+                else
+
+                {
+                    Intent i = new Intent(TndC.this, LesseActivity.class);
+                    i.putExtra("com", com);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                }
             }
         });
-        final CheckBox mCheckBox1 = (CheckBox) findViewById(R.id.onep);
-        final CheckBox mCheckBox2 = (CheckBox) findViewById(R.id.twop);
+
 
 
         mCheckBox2.setOnClickListener(new View.OnClickListener() {

@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_search"
-    tools:context="io.jaipurheights.rar.Form"
+    tools:context="io.jaipurheights.rar.form"
     android:background="#eeeeee">
 
     <ScrollView
@@ -43,7 +43,7 @@
                     android:id="@+id/onep"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Sell"/>
+                    android:text="Sale"/>
                 <CheckBox
                     android:id="@+id/twop"
                     android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:ems="10"
-                    android:hint="Area(max)"
+                    android:hint="Area(min)"
                     android:background="#fafafa"
                     android:inputType="number" />
 
@@ -197,7 +197,7 @@
                     android:layout_height="match_parent"
                     android:background="#fafafa"
                     android:ems="10"
-                    android:hint="Area(min)"
+                    android:hint="Area(max)"
                     android:paddingLeft="10dp"
                     android:inputType="number"
                     />

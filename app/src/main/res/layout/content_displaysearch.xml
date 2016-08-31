@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Identity"
+            android:text="Name"
             android:textStyle="italic"
             android:paddingBottom="8dp"/>
         <TextView

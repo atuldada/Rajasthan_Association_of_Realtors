@@ -60,12 +60,8 @@
                     android:layout_height="38dp"
                     android:background="#fafafa"
                     android:orientation="horizontal"
+                    android:weightSum="5"
                     >
-                    <Spinner
-                        android:id="@+id/name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
                     <EditText
                         android:id="@+id/lesseName"
                         android:layout_width="0dp"
@@ -75,7 +71,16 @@
                         android:inputType="textPersonName"
                         android:background="#fafafa"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"/>
+                        android:paddingRight="10dp"
+                        android:layout_weight="3"/>
+                    <Spinner
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+
+                        />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

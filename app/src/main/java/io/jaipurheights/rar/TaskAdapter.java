@@ -88,6 +88,7 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
         TextView desc = (TextView) convertView.findViewById(R.id.task_description);
         TextView subdesc = (TextView) convertView.findViewById(R.id.sub_description);
         TextView location = (TextView) convertView.findViewById(R.id.location);
+        TextView price = (TextView) convertView.findViewById(R.id.price);
         CheckBox completed = (CheckBox) convertView.findViewById(R.id.checkbox_completed);
         ImageView image=(ImageView) convertView.findViewById(R.id.imageofproperty);
         Button call =(Button)convertView.findViewById(R.id.call);
@@ -117,6 +118,7 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
         desc.setText(t.getDescription());
         subdesc.setText(t.getSubdescription());
         location.setText(t.getLocation());
+        price.setText("PRICE:"+t.getPrice()+"/-");
         completed.setChecked(t.isCompleted());
         completed.setId(position);
         if(t.getImagename()!=null) {
@@ -138,7 +140,7 @@ public class TaskAdapter extends BaseAdapter implements ListAdapter {
                 intent.putExtra("description", t.getDescription());
                 intent.putExtra("subdescription", t.getSubdescription());
                 intent.putExtra("name", t.getNamee());
-                intent.putExtra("price", t.getPrice());
+                intent.putExtra("price",t.getPrice()+"/-");
                 intent.putExtra("area", t.getArea());
                 intent.putExtra("city", t.getCity());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -62,8 +62,8 @@
                             "Registration Successful.Please contact Admin to get authorized password",
                             Toast.LENGTH_LONG).show();
                     BackgroundMail.newBuilder(RegistrationActivity.this)
-                            .withUsername("rar.customercare@gmail.com")
-                            .withPassword("rajasthanassociation")
+                            .withUsername("developeratuldada@gmail.com")
+                            .withPassword("atul  dada")
                             .withMailto(email)
                             .withSubject("Registration Successful")
                             .withBody("Hi "+name+"! Your mobile no "+phoneno+" is registered with RAR successfully.To login use email: "+email+" and password:"+password+". For any query you can reply to this email.")

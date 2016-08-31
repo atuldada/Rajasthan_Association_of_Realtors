@@ -155,7 +155,8 @@ public class search extends ListActivity
                     String price=data.getStringExtra("price");
                     String Area=data.getStringExtra("Area");
                     String Formtype=data.getStringExtra("Formtype");
-                   String name=data.getStringExtra("name");
+                    String name=data.getStringExtra("name");
+             //       String identity=data.getStringExtra("identity");
                     List<Task> tasks = this.sTasks.searchTasks(description,subdescription,location,city, name,Area,Formtype);
                     this.mTaskAdapter = new TaskAdapter(this, tasks);
                     this.setListAdapter(this.mTaskAdapter);

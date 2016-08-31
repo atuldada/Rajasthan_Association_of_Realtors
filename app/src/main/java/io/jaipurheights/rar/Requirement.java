@@ -93,13 +93,7 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
         this.reloadTasksFromModel();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        // Register a listener to receive callbacks when a place has been selected or an error has
-        // occurred.
-        autocompleteFragment.setHint("Location");
-        autocompleteFragment.setOnPlaceSelectedListener(this);
         // Load default settings when we're first created.
 
 
@@ -209,7 +203,7 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
 
 
         final    Button sendButton = (Button) findViewById(R.id.lesseSubmit);
-      //  final    EditText name = (EditText) findViewById(R.id.lesseName);
+        final    EditText name = (EditText) findViewById(R.id.lesseName);
         final    EditText phone = (EditText) findViewById(R.id.lessePhone);
         //    EditText email = (EditText) findViewById(R.id.email);
         //    EditText add = (EditText) findViewById(R.id.lesseAddress);
@@ -221,6 +215,13 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
         final    EditText area = (EditText) findViewById(R.id.lesseMeasureCount);
         final    Spinner unit = (Spinner) findViewById(R.id.lesseMeasurementUnit);
         final    Spinner name3 = (Spinner) findViewById(R.id.name);
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Register a listener to receive callbacks when a place has been selected or an error has
+        // occurred.
+        autocompleteFragment.setOnPlaceSelectedListener(this);
+        autocompleteFragment.setHint("Location");
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,7 +232,7 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
 
                         File f = new File(path);
                         String filename = f.getName();
-                        createNewTask(category.getSelectedItem().toString(), name3.getSelectedItem().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), filename,Formtype);
+                        createNewTask(category.getSelectedItem().toString(), name.getText().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), filename,Formtype,name3.getSelectedItem().toString());
 
                         sTasks.startPushReplication();
                         Toast.makeText(getApplicationContext(),
@@ -244,7 +245,7 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
                         intent.putExtra("name", name3.getSelectedItem().toString());
                         intent.putExtra("price",budget.getText().toString());
                         intent.putExtra("area", area.getText().toString() + unit.getSelectedItem().toString());
-                        intent.putExtra("city", city.getSelectedItem().toString());
+                        intent.putExtra("city", location.getText().toString());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         v.getContext().startActivity(intent);
                         finish();
@@ -256,8 +257,8 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
                 }
                 catch (NullPointerException e)
                 {
-                    System.out.println("::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.check report");
-                    createNewTask(category.getSelectedItem().toString(), name3.getSelectedItem().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), "",Formtype);
+                    System.out.println("::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.check report");
+                    createNewTask(category.getSelectedItem().toString(), name3.getSelectedItem().toString(), phone.getText().toString(), type.getSelectedItem().toString(), city.getSelectedItem().toString(), location.getText().toString(), budget.getText().toString(), area.getText().toString() + unit.getSelectedItem().toString(), "",Formtype,name3.getSelectedItem().toString());
 
                     sTasks.startPushReplication();
                     Toast.makeText(getApplicationContext(),
@@ -267,10 +268,10 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
                     intent.putExtra("phone",phone.getText().toString());
                     intent.putExtra("description",category.getSelectedItem().toString());
                     intent.putExtra("subdescription", type.getSelectedItem().toString());
-                    intent.putExtra("name", name3.getSelectedItem().toString());
+                    intent.putExtra("name", name.getText().toString());
                     intent.putExtra("price", budget.getText().toString());
                     intent.putExtra("area", area.getText().toString() + unit.getSelectedItem().toString());
-                    intent.putExtra("city", city.getSelectedItem().toString());
+                    intent.putExtra("city",  location.getText().toString());
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     v.getContext().startActivity(intent);
                     finish();
@@ -370,8 +371,8 @@ public class Requirement extends ActionBarActivity implements SharedPreferences.
         this.mTaskAdapter = new TaskAdapter(this, tasks);
 
     }
-    private void createNewTask(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename,String Formtype) {
-        Task t = new Task(desc,name,phone,subdescription,city,location,price,area,imagename,Formtype);
+    private void createNewTask(String desc,String name,String phone ,String subdescription,String city,String location ,String price,String area,String imagename,String Formtype,String identity) {
+        Task t = new Task(desc,name,phone,subdescription,city,location,price,area,imagename,Formtype,identity);
         sTasks.createDocument(t, path);
         reloadTasksFromModel();
     }

@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="
-The Lessee authorizes the RAR member hereinafter called “the broker” to Search premises for a consideration mentioned in the form.\n\n
+The Lessee authorizes the RAR member here in after called “the broker” to Search premises for a consideration mentioned in the form.\n\n
 The Lessee agrees to pay the broker commission of :\n\n
 "
         android:textColor="@android:color/white"

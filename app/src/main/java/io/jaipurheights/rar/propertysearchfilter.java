@@ -95,6 +95,7 @@ public class propertysearchfilter extends ActionBarActivity implements PlaceSele
                 intent.putExtra("Formtype",Formtype);
                 intent.putExtra("name", name.getSelectedItem().toString());
                 setResult(RESULT_OK, intent);
+
               /*  Toast.makeText(getApplicationContext(),
                             "Comming Soon...",
                         Toast.LENGTH_LONG).show();*/
